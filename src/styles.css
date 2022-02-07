@@ -1,0 +1,606 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Neucha", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.4px;
+    line-height: 1.5em;
+    color: white;
+    margin: 0;
+}
+
+.button {
+    font-family: "Neucha", Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    font-weight: 700;
+    padding: 7px 20px;
+    letter-spacing: 0.4px;
+    color: white;
+    border-radius: 30px;
+    background-color: #13cedd;
+    border: 2px solid white;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #1fbac5;
+}
+
+.header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(34, 33, 33);
+}
+
+.header__logo {
+    font-family: "Dancing Script", Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    margin: 0;
+}
+
+.header__logo a {
+    text-decoration: none;
+    color: rgb(202, 104, 206);
+}
+
+.header__logo:hover {
+    cursor: pointer;
+    text-shadow: 0px 0px 6px red;
+    transition: 0.5s;
+}
+
+.start,
+.sprint-rules,
+.sprint-game {
+    padding: 10px;
+    min-height: 80vh;
+    background-image: url('assets/bg/learn-english.jpg');
+    background-size: cover;
+    /* background-attachment: fixed; */
+    background-position: center bottom;
+}
+
+.start__nav {
+    flex-shrink: 0;
+}
+
+.start__container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20vh;
+}
+
+.start__title {
+    padding: 0 10px;
+    font-size: 3em;
+    max-width: 1000px;
+    text-align: center;
+    line-height: 1.5em;
+    text-shadow: 2px 2px 5px black;
+    flex-shrink: 1;
+}
+
+.start__nav-list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    font-size: 2em;
+    gap: 20px;
+    text-shadow: 2px 2px 3px black;
+    cursor: pointer;
+}
+
+.start__book a {
+    color: rgb(239, 243, 17);
+    text-decoration: none;
+}
+
+.start__book:hover {
+    text-shadow: 2px 2px 3px rgb(129, 70, 15);
+}
+
+.start__book::before,
+.start__sprint::before,
+.start__audio-call::before {
+    content: '';
+    display: inline-block;
+    position: relative;
+    top: 10px;
+    width: 54px;
+    height: 54px;
+    background: url('assets/img/tutorial.png') no-repeat center/cover;
+}
+
+.start__book:hover::before {
+    background: url('assets/img/book.png') no-repeat center/cover;
+    left: -5px;
+}
+
+.start__sprint a {
+    color: rgb(58, 226, 17);
+    text-decoration: none;
+}
+
+.start__sprint:hover {
+    text-shadow: 2px 2px 3px rgb(15, 129, 21);
+}
+
+.start__sprint::before {
+    background: url('assets/img/speedometer.png') no-repeat center/cover;
+    width: 44px;
+    height: 44px;
+    margin-right: 5px;
+}
+
+.start__sprint:hover:before,
+.start__audio-call:hover:before {
+    transition: 0.5s;
+    transform: scale(1.2, 1.2);
+}
+
+.start__audio-call a {
+    color: rgb(243, 11, 11);
+    text-decoration: none;
+}
+
+.start__audio-call:hover {
+    text-shadow: 2px 2px 3px rgb(129, 28, 15);
+}
+
+.start__audio-call::before {
+    background: url('assets/img/headphones.png') no-repeat center/cover;
+    width: 44px;
+    height: 44px;
+    margin-right: 5px;
+}
+
+.benefits {
+    padding: 10px;
+    background: linear-gradient( 90deg, #39d1b2, #5fade1);
+}
+
+.benefits__title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+
+.benefits__list,
+.footer__info {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.benefits__list {
+    padding: 0;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.benefits__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 200px;
+}
+
+.benefits__card-title {
+    font-size: 1.2em;
+    letter-spacing: 0.9px;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.benefits__card-subtitle {
+    margin: 0;
+    text-align: center;
+}
+
+.benefits__card-img {
+    max-width: 60px;
+    width: 100%;
+}
+
+.footer {
+    background-color: rgb(34, 33, 33);
+}
+
+.footer__info a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer__info a:hover {
+    opacity: 0.5;
+}
+
+.error404 {
+    color: black;
+    padding: 10px;
+    font-size: 1.5em;
+    min-height: 75vh;
+}
+
+.sprint-rules,
+.sprint-game {
+    background-image: url('assets/bg/jungle.jpg');
+}
+
+.sprint-rules__container,
+.sprint-game__container {
+    margin: 20vh auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    background-color: rgba(36, 34, 34, 0.7);
+    border-radius: 30px;
+}
+
+.sprint-rules {
+    display: none;
+}
+
+.sprint-rules__title {
+    font-size: 2.5em;
+}
+
+.sprint-rules__rules {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.sprint-rules__select {
+    font-family: inherit;
+    font-size: 1.3em;
+    font-weight: 700;
+    padding: 5px 20px;
+    border: 2px solid white;
+    background-color: #13cedd;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.sprint-rules__select:focus-visible {
+    outline: none;
+}
+
+.sprint-game__container {
+    border: 2px solid white;
+    padding: 10px;
+    max-width: 400px;
+    gap: 30px;
+}
+
+.sprint-game__points {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    gap: 5px;
+}
+
+.sprint-game__point {
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    background-color: #6a6e6e;
+}
+
+.sprint-game__true-btn {
+    background-color: rgb(38, 202, 23);
+    margin-right: 10px;
+}
+
+.sprint-game__false-btn {
+    background-color: rgb(211, 38, 26);
+    margin-bottom: 20px;
+}
+
+.sprint-game__eng-word,
+.sprint-game__translation {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.sprint-game__img {
+    width: 84px;
+    height: 84px;
+    background-image: url('assets/animals/rabbit.png');
+    background-size: cover;
+}
+
+.start-sprint-btn {
+    margin-bottom: 20px;
+}
+
+.book {
+    padding: 10px;
+    background: linear-gradient(90deg, #fee1e9, #edd5e1, #aed0db);
+}
+
+.book__nav,
+.book__training,
+.book__sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.book__section {
+    cursor: pointer;
+    background: linear-gradient( 90deg, #e9b4c3, #c8a1d3);
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    transition: 0.5s;
+}
+
+.book__section:hover {
+    transform: scale(1.2, 1.2)
+}
+
+.book__section_active {
+    background: none;
+    color: black;
+}
+
+.book__title {
+    text-shadow: 0px 0px 3px black;
+}
+
+.book__sprint,
+.book__audio-call {
+    width: 44px;
+    height: 44px;
+    transition: 0.5s;
+}
+
+.book__sprint:hover,
+.book__audio-call:hover {
+    box-shadow: 0px 0px 3px rgb(247, 245, 245);
+    transform: scale(1.2, 1.2)
+}
+
+.book__sprint {
+    background: url('assets/img/speedometer.png') no-repeat center/cover;
+}
+
+.book__audio-call {
+    background: url('assets/img/headphones.png') no-repeat center/cover;
+}
+
+.words-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.words-card {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    border: 2px solid blue;
+    background-color: rgb(92, 92, 129);
+    gap: 15px;
+    border-radius: 60px 30px;
+}
+
+.words-card__description {
+    display: flex;
+    gap: 20px;
+}
+
+.words-card__img {
+    background-image: url("assets/animals/fox.png");
+    max-width: 200px;
+    width: 100%;
+}
+
+.words-card__btns {
+    position: absolute;
+    display: flex;
+    right: 10px;
+    gap: 5px;
+}
+
+.words-card__listen,
+.words-card__difficult,
+.words-card__delete {
+    border-radius: 50px;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.words-card__listen {
+    background: url("assets/img/volume.png") no-repeat center/80% 90%;
+}
+
+.words-card__difficult {
+    background: url("assets/svg/bookmark.svg") no-repeat center/80% 90%;
+}
+
+.words-card__delete {
+    background: url("assets/svg/delete.svg") no-repeat center/80% 90%;
+}
+
+.words-card__difficult::after,
+.words-card__delete::after {
+    content: "Добавить сложное слово в словарь";
+    position: absolute;
+    font-size: initial;
+    font-style: italic;
+    left: calc(0vw - 40px);
+    top: -50px;
+    width: 150px;
+    padding: 2px;
+    color: black;
+    background-color: blanchedalmond;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.words-card__difficult:hover::after,
+.words-card__delete:hover::after {
+    opacity: 1;
+}
+
+.words-card__delete::after {
+    content: "Удалить слово";
+    width: 100px;
+    left: 0vw;
+    top: -30px;
+}
+
+.book__nav-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: baseline;
+    font-size: 1em;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px black;
+}
+
+@media (max-width:1400px) {
+    .start {
+        background-position: center;
+    }
+    .start__container {
+        margin-top: 0;
+    }
+    .start__title {
+        max-width: 500px;
+    }
+}
+
+@media (max-width:900px) {
+    .start__title {
+        font-size: 2.2em;
+    }
+    .start__nav-list {
+        font-size: 1.5em;
+        padding: 0;
+    }
+    .start__book::before,
+    .start__sprint::before,
+    .start__audio-call::before {
+        width: 40px;
+        height: 40px;
+    }
+    .words-card__description {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+    .words-card__title {
+        margin: 0 0 5px 0;
+    }
+    .words-card p {
+        margin: 5px 0;
+    }
+    .words-card__example p:last-child {
+        margin-bottom: 0;
+    }
+    .words-card__listen,
+    .words-card__difficult,
+    .words-card__delete {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width:700px) {
+    body {
+        font-size: 15px;
+    }
+    .header__logo {
+        font-size: 1.5em;
+    }
+    .button {
+        padding: 5px 15px;
+    }
+    .start {
+        min-height: 60vh;
+    }
+    .start__container {
+        flex-wrap: wrap;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+    }
+    .start__nav {
+        flex-shrink: 1;
+    }
+    .start__nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0;
+        padding-bottom: 10px;
+    }
+    .start__title {
+        margin-top: 10px;
+        /* border-radius: 20px;
+        background: rgba(0, 0, 0, 0.6); */
+    }
+    .book__nav,
+    .book__training,
+    .book__sections {
+        gap: 10px;
+        margin: 0 0 10px 0;
+    }
+    .book__sprint,
+    .book__audio-call {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width:600px) {
+    body {
+        font-size: 17px;
+    }
+    .words-list {
+        align-items: center;
+    }
+    .words-card {
+        max-width: 500px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .words-card__description {
+        text-align: center;
+        justify-content: center;
+    }
+    .words-card__img {
+        min-height: 100px;
+    }
+    .words-card__btns {
+        flex-direction: column;
+    }
+    .words-card__difficult::after,
+    .words-card__delete::after {
+        display: none;
+    }
+}
