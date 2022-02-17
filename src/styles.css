@@ -61,7 +61,6 @@ body {
     min-height: 80vh;
     background-image: url('assets/bg/learn-english.jpg');
     background-size: cover;
-    /* background-attachment: fixed; */
     background-position: center bottom;
 }
 
@@ -216,6 +215,18 @@ body {
 
 .footer {
     background-color: rgb(34, 33, 33);
+    padding: 0 10px;
+}
+
+.gratitude {
+    margin: 0;
+    padding-bottom: 5px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.gratitude a {
+    color: white;
 }
 
 .footer__info a {
@@ -223,7 +234,8 @@ body {
     text-decoration: none;
 }
 
-.footer__info a:hover {
+.footer__info a:hover,
+.gratitude a:hover {
     opacity: 0.5;
 }
 
@@ -234,25 +246,47 @@ body {
     min-height: 75vh;
 }
 
-.sprint-rules,
-.sprint-game {
-    background-image: url('assets/bg/jungle.jpg');
+.book__nav,
+.book__training,
+.book__sections,
+.sprint-game__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    padding: 0;
 }
 
-.sprint-rules__container,
-.sprint-game__container {
-    margin: 20vh auto;
+.sprint-rules,
+.sprint-game {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url('assets/bg/jungle.jpg');
+}
+
+.sprint-game:focus-visible {
+    outline: none;
+}
+
+.sprint-game {
+    display: none;
+}
+
+.sprint-rules__container,
+.sprint-game__container {
+    margin: 10vh 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
     max-width: 600px;
     background-color: rgba(36, 34, 34, 0.7);
     border-radius: 30px;
-}
-
-.sprint-rules {
-    display: none;
 }
 
 .sprint-rules__title {
@@ -285,7 +319,36 @@ body {
     border: 2px solid white;
     padding: 10px;
     max-width: 400px;
+    width: 100%;
     gap: 30px;
+}
+
+.timer {
+    border-radius: 50px;
+    border: 3px solid white;
+    padding: 10px 15px;
+    text-align: center;
+    align-self: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.sprint-game__info {
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+}
+
+.sprint-game__score {
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 0px 0px 3px black;
+}
+
+.sprint-game__points-info {
+    color: #0bff34;
+    text-shadow: 0px 0px 3px black;
+    font-size: 1.1em;
 }
 
 .sprint-game__points {
@@ -297,10 +360,18 @@ body {
 }
 
 .sprint-game__point {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     border-radius: 50px;
     background-color: #6a6e6e;
+}
+
+.sprint-game__point-active {
+    background: url('assets/svg/сheck-mark.svg') no-repeat white center/cover;
+}
+
+.sprint-game__btns {
+    position: relative;
 }
 
 .sprint-game__true-btn {
@@ -308,9 +379,25 @@ body {
     margin-right: 10px;
 }
 
+.sprint-game__true-btn::after {
+    content: '🠔';
+    position: absolute;
+    font-size: 1.5em;
+    bottom: -12px;
+    left: 25px;
+}
+
 .sprint-game__false-btn {
     background-color: rgb(211, 38, 26);
     margin-bottom: 20px;
+}
+
+.sprint-game__false-btn::after {
+    content: '🠖';
+    font-size: 1.5em;
+    position: absolute;
+    bottom: -12px;
+    right: 25px;
 }
 
 .sprint-game__eng-word,
@@ -336,18 +423,6 @@ body {
     background: linear-gradient(90deg, #fee1e9, #edd5e1, #aed0db);
 }
 
-.book__nav,
-.book__training,
-.book__sections {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 0 0 20px 0;
-    list-style-type: none;
-    padding: 0;
-}
-
 .book__section {
     cursor: pointer;
     background: linear-gradient( 90deg, #e9b4c3, #c8a1d3);
@@ -357,12 +432,20 @@ body {
     transition: 0.5s;
 }
 
+.book__section a {
+    text-decoration: none;
+    color: white;
+}
+
 .book__section:hover {
     transform: scale(1.2, 1.2)
 }
 
 .book__section_active {
     background: none;
+}
+
+.book__section_active a {
     color: black;
 }
 
@@ -391,12 +474,29 @@ body {
     background: url('assets/img/headphones.png') no-repeat center/cover;
 }
 
+.book__nav-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: baseline;
+    font-size: 1em;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px black;
+}
+
+.book__prev-page,
+.book__next-page {
+    text-decoration: none;
+}
+
 .words-list {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
-.words-card {
+.word-card {
     position: relative;
     padding: 10px;
     display: flex;
@@ -406,47 +506,60 @@ body {
     border-radius: 60px 30px;
 }
 
-.words-card__description {
+.word-card__description {
     display: flex;
     gap: 20px;
 }
 
-.words-card__img {
-    background-image: url("assets/animals/fox.png");
-    max-width: 200px;
+.word-card__title {
+    max-width: calc( ( 90% - 40px) / 3);
+}
+
+.word-card__value,
+.word-card__example {
+    max-width: calc( ( 100% - 40px) / 3);
+    flex-shrink: 1;
+}
+
+.word-card__img {
+    background-position: center;
+    background-size: cover;
+    border-radius: 60px 0 0 0;
+    max-width: 300px;
+    min-height: 190px;
     width: 100%;
 }
 
-.words-card__btns {
+.word-card__btns {
     position: absolute;
     display: flex;
     right: 10px;
     gap: 5px;
 }
 
-.words-card__listen,
-.words-card__difficult,
-.words-card__delete {
+.word-card__listen,
+.word-card__difficult,
+.word-card__studied {
     border-radius: 50px;
     padding: 5px;
     width: 40px;
     height: 40px;
 }
 
-.words-card__listen {
+.word-card__listen {
     background: url("assets/img/volume.png") no-repeat center/80% 90%;
 }
 
-.words-card__difficult {
+.word-card__difficult {
     background: url("assets/svg/bookmark.svg") no-repeat center/80% 90%;
 }
 
-.words-card__delete {
-    background: url("assets/svg/delete.svg") no-repeat center/80% 90%;
+.word-card__studied {
+    background: url("assets/svg/сheck-mark.svg") no-repeat center/80% 90%;
 }
 
-.words-card__difficult::after,
-.words-card__delete::after {
+.word-card__difficult::after,
+.word-card__studied::after {
     content: "Добавить сложное слово в словарь";
     position: absolute;
     font-size: initial;
@@ -461,27 +574,16 @@ body {
     opacity: 0;
 }
 
-.words-card__difficult:hover::after,
-.words-card__delete:hover::after {
+.word-card__difficult:hover::after,
+.word-card__studied:hover::after {
     opacity: 1;
+    cursor: auto;
 }
 
-.words-card__delete::after {
-    content: "Удалить слово";
+.word-card__studied::after {
+    content: "Пометить как изученное";
     width: 100px;
     left: 0vw;
-    top: -30px;
-}
-
-.book__nav-btns {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
-    align-items: baseline;
-    font-size: 1em;
-    font-weight: bold;
-    text-shadow: 0px 0px 3px black;
 }
 
 @media (max-width:1400px) {
@@ -510,25 +612,124 @@ body {
         width: 40px;
         height: 40px;
     }
-    .words-card__description {
+    .word-card__description {
+        flex-direction: column;
         flex-wrap: wrap;
         gap: 0;
     }
-    .words-card__title {
+    .word-card__title {
         margin: 0 0 5px 0;
     }
-    .words-card p {
+    .word-card__title {
+        max-width: 70%;
+    }
+    .word-card__value,
+    .word-card__example {
+        max-width: 100%;
+    }
+    .word-card p {
         margin: 5px 0;
     }
-    .words-card__example p:last-child {
+    .word-card__example p:last-child {
         margin-bottom: 0;
     }
-    .words-card__listen,
-    .words-card__difficult,
-    .words-card__delete {
+    .word-card__listen,
+    .word-card__difficult,
+    .word-card__studied {
         width: 30px;
         height: 30px;
     }
+}
+
+.result {
+    position: fixed;
+    top: 10px;
+    left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 98vw;
+    height: 98vh;
+    background-color: rgba(247, 247, 247, 0.5);
+}
+
+.result__container {
+    max-width: 85vw;
+    max-height: 95vh;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.result__score {
+    font-weight: bold;
+}
+
+.result__answers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.result__right,
+.result__wrong {
+    padding: 5px 8px;
+    background-color: #10d431;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.result__right:hover,
+.result__wrong:hover {
+    opacity: 0.7;
+}
+
+.result__wrong {
+    background-color: #d41d10;
+}
+
+.result__right-list,
+.result__wrong-list {
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    overflow: auto;
+    max-height: 40vh;
+    /* height: 100%; */
+    display: none;
+}
+
+.result__show-list {
+    display: flex;
+}
+
+.result__list-item {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    color: black;
+}
+
+.result__audio {
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border: none;
+    background: url("assets/img/volume.png") no-repeat center/80% 90%;
+    transition: 0.5s;
+}
+
+.result__audio:hover {
+    transform: scale(1.1, 1.1);
+}
+
+.result__back {
+    text-decoration: none;
 }
 
 @media (max-width:700px) {
@@ -575,6 +776,22 @@ body {
         width: 40px;
         height: 40px;
     }
+    .word-card__title {
+        max-width: 50%;
+    }
+    .result__container {
+        overflow-y: auto;
+    }
+    .result__title {
+        margin-top: 0;
+    }
+    .result__right-list,
+    .result__wrong-list {
+        height: 100%;
+    }
+    .result__word {
+        margin: 0;
+    }
 }
 
 @media (max-width:600px) {
@@ -584,23 +801,31 @@ body {
     .words-list {
         align-items: center;
     }
-    .words-card {
+    .word-card {
         max-width: 500px;
+        width: 100%;
         flex-direction: column;
         align-items: center;
     }
-    .words-card__description {
+    .word-card__description {
         text-align: center;
         justify-content: center;
     }
-    .words-card__img {
-        min-height: 100px;
+    .word-card__title {
+        max-width: 100%;
     }
-    .words-card__btns {
+    /* .word-card__img {
+        min-height: 100px;
+    } */
+    .word-card__btns {
         flex-direction: column;
     }
-    .words-card__difficult::after,
-    .words-card__delete::after {
+    .word-card__difficult::after,
+    .word-card__studied::after {
         display: none;
+    }
+    .result__right-list,
+    .result__wrong-list {
+        padding: 0;
     }
 }
