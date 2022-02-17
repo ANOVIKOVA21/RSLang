@@ -1,19 +1,30 @@
+import { renderBookPage } from './book';
+// import { options } from './options';
+
 export function getHomeComponent(): string {
   const startPageTemp = document.getElementById('start-page') as HTMLTemplateElement;
   return startPageTemp.innerHTML;
 }
 
-export function getBookComponent(): string {
-  const bookPageTemp = document.getElementById('book-page') as HTMLTemplateElement;
+export async function getBookComponent(path: string) {
+  const bookGroup = Number(path.slice(-3, -2));
+  const bookPage = Number(path.slice(-1));
+  const bookPageTemp = await renderBookPage(bookGroup, bookPage);
   return bookPageTemp.innerHTML;
 }
 
-export function getSprintComponent(): string {
+export function getSprintComponent(path: string): string {
   const sprintPageTemp = document.getElementById('sprint-page') as HTMLTemplateElement;
+  if (path.includes('levels=false')) {
+    sprintPageTemp.content.querySelector('select')?.remove();
+  }
   return sprintPageTemp.innerHTML;
 }
-export function getAudioCallComponent(): string {
+export function getAudioCallComponent(path: string): string {
   const audioCallTemp = document.getElementById('audio-call-page') as HTMLTemplateElement;
+  if (path.includes('hideLevels=true')) {
+    audioCallTemp.content.querySelector('select')?.remove();
+  }
   return audioCallTemp.innerHTML;
 }
 export function getErrorComponent(): string {

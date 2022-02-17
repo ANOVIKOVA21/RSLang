@@ -6,19 +6,27 @@ import {
   getErrorComponent,
 } from './components';
 
+import { addListeners } from './listeners';
 const routes = [
-  { path: '/', component: getHomeComponent() },
-  { path: '/book', component: getBookComponent() },
-  { path: '/sprint', component: getSprintComponent() },
-  { path: '/audioCall', component: getAudioCallComponent() },
+  { path: `/book`, componentFunc: (path: string) => getBookComponent(path) },
+  { path: '/sprint', componentFunc: (path: string) => getSprintComponent(path) },
+  { path: '/audioCall', componentFunc: (path: string) => getAudioCallComponent(path) },
+  { path: '/', componentFunc: () => getHomeComponent() },
 ];
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
-const findComponentByPath = (path: string) =>
-  routes.find((r) => r.path.match(new RegExp(`^\\${path}$`, 'gmi'))) || undefined;
-const router = () => {
+const findComponentByPath = (path: string) => {
+  const route = routes.find((r) => path.startsWith(r.path));
+
+  if (!route) return undefined;
+
+  return route.componentFunc(path);
+};
+
+const router = async () => {
   const path = parseLocation();
-  const { component = getErrorComponent() } = findComponentByPath(path) || {};
-  (document.getElementById('main') as HTMLElement).innerHTML = component;
+  const component = findComponentByPath(path) || getErrorComponent();
+  (document.getElementById('main') as HTMLElement).innerHTML = await component;
+  addListeners();
 };
 window.addEventListener('hashchange', router);
 window.addEventListener('load', router);
