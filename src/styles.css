@@ -248,6 +248,73 @@ body {
     opacity: 0.7;
 }
 
+.authorization__form {
+    padding: 10px;
+    color: black;
+    position: relative;
+}
+
+.authorization,
+.authorization__form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.authorization {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: 0.5s;
+    display: none;
+    /* opacity: 0; */
+}
+
+.authorization__close {
+    position: absolute;
+    font-size: 1.5em;
+    top: -10px;
+    right: 0px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.authorization__close:hover {
+    color: red;
+}
+
+.authorization__title {
+    font-size: 1.5em;
+}
+
+.authorization__form-container {
+    width: 300px;
+    border: 2px solid #13cedd;
+}
+
+.authorization__form-container input {
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    border-radius: 5px;
+    border: 2px solid #13cedd;
+    background-color: white;
+}
+
+.authorization__sign-in {
+    font-weight: 400;
+    margin-top: 10px;
+    border: none;
+}
+
 .footer {
     background-color: rgb(34, 33, 33);
     padding: 0 10px;
