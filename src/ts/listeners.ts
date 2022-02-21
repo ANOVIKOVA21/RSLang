@@ -1,5 +1,6 @@
 import { options, levelOptions } from './options';
-import { getLevelData, start, startTimer, checkRightAnswers, setScore } from './game';
+import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
+import { shuffle } from './general-functions';
 export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElement) {
   const currentBookPage = Number(location.hash.slice(-1));
   const minCurrentPage = 0;
@@ -23,9 +24,7 @@ export function addWordsListeners(ev: Event, container: HTMLDivElement) {
   if (target.closest('.word-card__listen')) {
     const audioList: HTMLAudioElement[] = [];
     audioLinks?.forEach((link) => {
-      const url = `https://anna-learnenglish.herokuapp.com/${link}`;
-      const audio = new Audio(url);
-      audio.load();
+      const audio = getAudio(link);
       audioList.push(audio);
     });
 
@@ -48,8 +47,14 @@ export function addListeners() {
   const footer = document.querySelector('.footer') as HTMLElement;
   const sprintGameContainer = document.querySelector('.sprint-game__container') as HTMLDivElement;
   const sprintGameBtns = document.querySelector('.sprint-game__btns');
-  //   const bookPrevPage = document.querySelector('.book__prev-page');
-  //   const bookNextPage = document.querySelector('.book__next-page');
+  const audioCallRulesEl = document.querySelector('.audiocall-rules') as HTMLElement;
+  const audioCallGameEl = document.querySelector('.audiocall-game') as HTMLElement;
+  const audioCallSelect = document.querySelector('.audiocall-rules__select') as HTMLSelectElement;
+  const audioCallStartBtn = document.querySelector('.start-audiocall-btn');
+  const listenBtn = document.querySelector('.audiocall-game__listen') as HTMLButtonElement;
+  const audioCallAnswerBtnsContainer = document.querySelector('.audiocall-game__options');
+  const skipBtn = document.querySelector('.skip-btn') as HTMLButtonElement;
+  const optionsTranslationBtns = document.querySelectorAll<HTMLLIElement>('.audiocall-game__option');
 
   bookBtnsContainer?.addEventListener('click', (ev) => {
     const target = ev.target as HTMLLinkElement;
@@ -77,16 +82,15 @@ export function addListeners() {
     sprintGameEl.style.display = 'flex';
     footer.style.display = 'none';
     if (sprintSelect) {
-      levelOptions.words = await getLevelData(Number(sprintSelect.value));
+      levelOptions.words = await getLevelData(6, Number(sprintSelect.value));
     } else {
-      levelOptions.words = await getLevelData(options.currentBookGroup, options.currentBookPage);
+      levelOptions.words = await getLevelData(6, options.currentBookGroup, options.currentBookPage);
     }
-    start(levelOptions.words);
+    startSprint(levelOptions.words);
     startTimer();
     sprintGameEl?.focus();
   });
   sprintGameEl?.addEventListener('keydown', (ev) => {
-    console.log(ev.key);
     if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
     if (levelOptions.time === 0) return;
     const trueBtn = sprintGameEl.querySelector<HTMLElement>('.sprint-game__true-btn');
@@ -116,6 +120,79 @@ export function addListeners() {
       checkRightAnswers();
       setTimeout(() => (sprintGameContainer.style.border = '2px solid white'), 1000);
     }
-    start(levelOptions.words);
+    startSprint(levelOptions.words);
+  });
+  audioCallStartBtn?.addEventListener('click', async () => {
+    audioCallRulesEl.style.display = 'none';
+    audioCallGameEl.style.display = 'flex';
+    footer.style.display = 'none';
+    if (audioCallSelect) {
+      const wordsArr = await getLevelData(6, Number(audioCallSelect.value));
+      levelOptions.words = shuffle(wordsArr);
+    } else {
+      const wordsArr = await getLevelData(3, options.currentBookGroup, options.currentBookPage);
+      const firstPart = shuffle(wordsArr.slice(0, 20));
+      const secondPart = wordsArr.slice(20);
+      levelOptions.words = firstPart.concat(secondPart);
+    }
+    startAudioCall(levelOptions.words);
+    audioCallGameEl?.focus();
+  });
+  listenBtn?.addEventListener('click', () => {
+    const audio = getAudio(listenBtn.dataset.audio || '');
+    audio.play();
+  });
+  audioCallAnswerBtnsContainer?.addEventListener('click', (ev) => {
+    const target = ev.target as HTMLElement;
+    if (target.tagName != 'LI') return;
+    optionsTranslationBtns.forEach((btn) => (btn.style.pointerEvents = 'none'));
+    skipBtn.innerHTML = '🠖';
+    if (target.innerHTML === levelOptions.rightAnswer) {
+      target.classList.add('audiocall-game__right-answer');
+      levelOptions.userRightAnswers.push({ id: levelOptions.currentWordId, questionNum: levelOptions.questionNum - 1 });
+    } else {
+      target.classList.add('audiocall-game__wrong-answer');
+      optionsTranslationBtns.forEach((btn) => {
+        if (btn.innerHTML === levelOptions.rightAnswer) btn.classList.add('audiocall-game__right-answer');
+      });
+      levelOptions.userWrongAnswers.push({ id: levelOptions.currentWordId, questionNum: levelOptions.questionNum - 1 });
+    }
+  });
+  skipBtn?.addEventListener('click', () => {
+    if (skipBtn.innerHTML === 'Не знаю') {
+      skipBtn.innerHTML = '🠖';
+      optionsTranslationBtns.forEach((btn) => {
+        btn.style.pointerEvents = 'none';
+        if (btn.innerHTML === levelOptions.rightAnswer) btn.classList.add('audiocall-game__right-answer');
+      });
+      levelOptions.userWrongAnswers.push({ id: levelOptions.currentWordId, questionNum: levelOptions.questionNum - 1 });
+    } else {
+      skipBtn.innerHTML = 'Не знаю';
+      optionsTranslationBtns.forEach((btn) => {
+        btn.classList.remove('audiocall-game__right-answer');
+        btn.classList.remove('audiocall-game__wrong-answer');
+        btn.style.pointerEvents = 'auto';
+      });
+      startAudioCall(levelOptions.words);
+    }
+  });
+  audioCallGameEl?.addEventListener('keydown', (ev) => {
+    if (ev.key === '1') optionsTranslationBtns[0].click();
+    if (ev.key === '2') optionsTranslationBtns[1].click();
+    if (ev.key === '3') optionsTranslationBtns[2].click();
+    if (ev.key === '4') optionsTranslationBtns[3].click();
+    if (ev.key === '5') optionsTranslationBtns[4].click();
+    if (ev.key === ' ') {
+      if (document.hasFocus() === false) skipBtn.focus();
+      skipBtn.click();
+      if (document.hasFocus()) {
+        skipBtn.blur();
+        audioCallGameEl.focus();
+      }
+    }
+    if (ev.key === 'Enter') {
+      ev.preventDefault();
+      listenBtn.click();
+    }
   });
 }
