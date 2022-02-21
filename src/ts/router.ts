@@ -1,3 +1,4 @@
+import '../styles.css';
 import {
   getHomeComponent,
   getBookComponent,
@@ -13,7 +14,7 @@ const routes = [
   { path: '/audioCall', componentFunc: (path: string) => getAudioCallComponent(path) },
   { path: '/', componentFunc: () => getHomeComponent() },
 ];
-const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
+const parseLocation = () => location.hash.slice(1) || '/';
 const findComponentByPath = (path: string) => {
   const route = routes.find((r) => path.startsWith(r.path));
 

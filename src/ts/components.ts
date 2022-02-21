@@ -21,8 +21,8 @@ export function getSprintComponent(path: string): string {
   return sprintPageTemp.innerHTML;
 }
 export function getAudioCallComponent(path: string): string {
-  const audioCallTemp = document.getElementById('audio-call-page') as HTMLTemplateElement;
-  if (path.includes('hideLevels=true')) {
+  const audioCallTemp = document.getElementById('audiocall-page') as HTMLTemplateElement;
+  if (path.includes('levels=false')) {
     audioCallTemp.content.querySelector('select')?.remove();
   }
   return audioCallTemp.innerHTML;
