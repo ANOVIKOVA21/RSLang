@@ -196,3 +196,27 @@ export function addListeners() {
     }
   });
 }
+export function addAuthorizationListeners() {
+  debugger;
+  const authorization = document.querySelector('.authorization') as HTMLElement;
+  const signInBtn = document.querySelector('.header__sign-in');
+  const closeBtn = document.querySelector('.authorization__close');
+  const authorizationBtn = document.querySelector('.authorization__sign-in');
+  const userName = document.getElementById('user-name') as HTMLInputElement;
+  const email = document.getElementById('email') as HTMLInputElement;
+  const password = document.getElementById('password') as HTMLInputElement;
+  signInBtn?.addEventListener('click', () => {
+    authorization.style.display = 'flex';
+  });
+  closeBtn?.addEventListener('click', () => {
+    authorization.style.display = 'none';
+  });
+  authorizationBtn?.addEventListener('click', (ev) => {
+    if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
+    ev.preventDefault();
+    console.log('valid');
+    // console.log('email', email.validity.valid);
+    // console.log('password valid', password.validity.valid);
+    // console.log('password', password.value);
+  });
+}

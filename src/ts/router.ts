@@ -6,8 +6,10 @@ import {
   getAudioCallComponent,
   getErrorComponent,
 } from './components';
-
 import { addListeners } from './listeners';
+import { addAuthorizationListeners } from './listeners';
+
+addAuthorizationListeners();
 const routes = [
   { path: `/book`, componentFunc: (path: string) => getBookComponent(path) },
   { path: '/sprint', componentFunc: (path: string) => getSprintComponent(path) },
