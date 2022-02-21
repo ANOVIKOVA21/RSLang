@@ -260,7 +260,9 @@ body {
 }
 
 .sprint-rules,
-.sprint-game {
+.sprint-game,
+.audiocall-rules,
+.audiocall-game {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -268,37 +270,66 @@ body {
     background-image: url('assets/bg/jungle.jpg');
 }
 
-.sprint-game:focus-visible {
+.audiocall-rules,
+.audiocall-game {
+    background: url('assets/bg/sunset.jpg') center/cover;
+}
+
+.sprint-game:focus-visible,
+.audiocall-game:focus-visible {
     outline: none;
 }
 
-.sprint-game {
+.sprint-game,
+.audiocall-game {
     display: none;
 }
 
 .sprint-rules__container,
-.sprint-game__container {
+.sprint-game__container,
+.audiocall-rules__container,
+.audiocall-game__container {
     margin: 10vh 0;
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
     max-width: 600px;
     background-color: rgba(36, 34, 34, 0.7);
     border-radius: 30px;
 }
 
-.sprint-rules__title {
+.audiocall-rules__container {
+    padding: 0 15px 10px 15px;
+    position: relative;
+    gap: 10px;
+}
+
+.sprint-rules__title,
+.audiocall-rules__title {
     font-size: 2.5em;
 }
 
-.sprint-rules__rules {
+.sprint-rules__rules,
+.audiocall-rules__rules1 {
     text-align: center;
     font-size: 1.5em;
 }
 
-.sprint-rules__select {
+.audiocall-rules__rules1 {
+    margin: 0;
+}
+
+.audiocall-rules__rules {
+    max-width: 500px;
+    text-align: justify;
+    font-size: 1.4em;
+    margin: 0;
+}
+
+.sprint-rules__select,
+.audiocall-rules__select {
     font-family: inherit;
     font-size: 1.3em;
     font-weight: 700;
@@ -309,6 +340,10 @@ body {
     border-radius: 20px;
     cursor: pointer;
     margin-bottom: 10px;
+}
+
+.audiocall-rules__select {
+    margin: 0;
 }
 
 .sprint-rules__select:focus-visible {
@@ -416,6 +451,118 @@ body {
 
 .start-sprint-btn {
     margin-bottom: 20px;
+}
+
+.audiocall-game {
+    min-height: 90vh;
+}
+
+.audiocall-game__container {
+    max-width: 80vw;
+    width: 100%;
+    gap: 20px;
+    background-color: transparent;
+}
+
+.audiocall-game__listen {
+    display: block;
+    max-width: 150px;
+    max-height: 150px;
+    padding: 7px;
+    border-radius: 50px;
+    box-shadow: 0 0 6px white;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: rgba(36, 34, 34, 0.7);
+}
+
+.audiocall-game__listen:hover {
+    background-color: rgba(110, 102, 106, 0.5);
+}
+
+.audiocall-game__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 1.8em;
+    list-style-type: none;
+    padding: 0;
+}
+
+.audiocall-game__option {
+    cursor: pointer;
+    color: #8d5ecb;
+    transition: 1s;
+    padding: 10px;
+    border: 1.5px solid transparent;
+}
+
+.audiocall-game__right-answer {
+    color: #0d930d;
+    text-decoration: underline;
+}
+
+.audiocall-game__wrong-answer {
+    color: #dd483d;
+    text-decoration: line-through;
+}
+
+.audiocall-game__option:hover {
+    border: 1.5px solid black;
+}
+
+.skip-btn {
+    font-weight: 200;
+    background-color: transparent;
+    color: #8d5ecb;
+    border: 2px solid #8d5ecb;
+}
+
+.skip-btn:hover,
+.skip-btn:focus-visible {
+    color: white;
+    border: 2px solid white;
+    background-color: #13cedd;
+    outline: none;
+}
+
+.info {
+    position: absolute;
+    padding: 1px 10px;
+    font-size: 1.2em;
+    top: 20px;
+    right: 20px;
+    border-radius: 50px;
+    border: 2px solid rgb(136, 183, 236);
+    font-style: italic;
+    font-family: 'Times New Roman';
+    cursor: pointer;
+}
+
+.info::after {
+    content: "Управление с клавиатуры. Используйте цифрры (1-5), чтобы выбрать вариант ответа, Enter - чтобы услышать слово, пробел - чтобы выбрать кнопку 'Не знаю' или перейти к следующему слову";
+    display: block;
+    position: absolute;
+    font-size: 1em;
+    font-family: "Neucha", Arial, Helvetica, sans-serif;
+    padding: 5px 10px;
+    width: 230px;
+    color: #524f4f;
+    background-color: rgb(189, 218, 226);
+    transition: 0.5s;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 10px;
+}
+
+.info:hover {
+    background-color: #13cedd;
+}
+
+.info:hover::after {
+    opacity: 1;
 }
 
 .book {
@@ -572,12 +719,12 @@ body {
     background-color: blanchedalmond;
     transition: 0.5s;
     opacity: 0;
+    pointer-events: none;
 }
 
 .word-card__difficult:hover::after,
 .word-card__studied:hover::after {
     opacity: 1;
-    cursor: auto;
 }
 
 .word-card__studied::after {
@@ -595,6 +742,12 @@ body {
     }
     .start__title {
         max-width: 500px;
+    }
+}
+
+@media (max-width:1050px) {
+    .info::after {
+        left: calc(0vw - 230px);
     }
 }
 
@@ -700,7 +853,6 @@ body {
     list-style: none;
     overflow: auto;
     max-height: 40vh;
-    /* height: 100%; */
     display: none;
 }
 
@@ -730,6 +882,15 @@ body {
 
 .result__back {
     text-decoration: none;
+}
+
+@media (max-width:800px) {
+    .audiocall-game__container {
+        gap: 0;
+    }
+    .audiocall-game__listen {
+        max-width: 100px;
+    }
 }
 
 @media (max-width:700px) {
@@ -762,8 +923,6 @@ body {
     }
     .start__title {
         margin-top: 10px;
-        /* border-radius: 20px;
-        background: rgba(0, 0, 0, 0.6); */
     }
     .book__nav,
     .book__training,
@@ -814,9 +973,6 @@ body {
     .word-card__title {
         max-width: 100%;
     }
-    /* .word-card__img {
-        min-height: 100px;
-    } */
     .word-card__btns {
         flex-direction: column;
     }
@@ -827,5 +983,30 @@ body {
     .result__right-list,
     .result__wrong-list {
         padding: 0;
+    }
+    .sprint-game__container {
+        gap: 15px;
+    }
+    .info {
+        display: none;
+    }
+    .audiocall-game__options {
+        gap: 0;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width:400px) {
+    body {
+        font-size: 15px;
+    }
+    .audiocall-game__listen {
+        max-width: 80px;
+    }
+}
+
+@media (min-height:701px) {
+    .start {
+        min-height: 50vh;
     }
 }

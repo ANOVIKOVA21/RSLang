@@ -81,7 +81,7 @@
                 </ul>
                 <div class="book__training">
                     <a href="#/sprint?levels=false" class="book__sprint"></a>
-                    <a href="#/audioCall" class="book__audio-call"></a>
+                    <a href="#/audioCall?levels=false" class="book__audio-call"></a>
                 </div>
             </nav>
             <div class="words-list"></div>
@@ -120,7 +120,7 @@
                 <h2 class="sprint-rules__title">Cпринт</h2>
                 <p class="sprint-rules__rules">В течении минуты попытайтесь угадать как можно больше слов! С помощью
                     кнопок или клавиатуры выбирите соответствует ли перевод предложенному слову.</p>
-                <select name="levels" id="" class="sprint-rules__select">
+                <select name="levels" class="sprint-rules__select">
                     <option value="1">Уровень 1</option>
                     <option value="2">Уровень 2</option>
                     <option value="3">Уровень 3</option>
@@ -156,9 +156,44 @@
             </div>
         </section>
     </template>
-    <template id="audio-call-page">
-        <section>
-            <h2>audio-call</h2>
+    <template id="audiocall-page">
+        <article class="audiocall-rules">
+            <div class="audiocall-rules__container">
+                <div class="info">i</div>
+                <h2 class="audiocall-rules__title">Аудиовызов</h2>
+                <p class="audiocall-rules__rules1">Давайте проверим насколько хорошо Вы воспринимаете английскую речь на
+                    слух!
+                </p>
+                <p class="audiocall-rules__rules">Вы услышите слово и увидите 5 вариантов его перевода. Ваша задача с
+                    помощью кнопок или клавиатуры выбрать правильный перевод озвученного слова. Если Вы затрудняетесь с
+                    ответом нажмите на
+                    кнопку 'Не знаю', но учтите, что этот ответ будет засчитан как неправильный.</p>
+                <p class="audiocall-rules__rules"> Удачи!</p>
+                <select name="levels" class="audiocall-rules__select">
+                    <option value="1">Уровень 1</option>
+                    <option value="2">Уровень 2</option>
+                    <option value="3">Уровень 3</option>
+                    <option value="4">Уровень 4</option>
+                    <option value="5">Уровень 5</option>
+                    <option value="6">Уровень 6</option>
+                </select>
+                <button type="button" class="start-audiocall-btn button">Вперед</button>
+            </div>
+        </article>
+        <section class="audiocall-game" tabindex="0">
+            <div class="audiocall-game__container">
+                <img src="./svg/speaker.png" alt="speaker" class="audiocall-game__listen">
+                <ul class="audiocall-game__options">
+                    <li class="audiocall-game__option">banana</li>
+                    <li class="audiocall-game__option">literature</li>
+                    <li class="audiocall-game__option">language</li>
+                    <li class="audiocall-game__option">attend</li>
+                    <li class="audiocall-game__option">invite</li>
+                </ul>
+                <button type="button" class="skip-btn button">Не знаю</button>
+            </div>
+            <!-- <h2>audio-call</h2> -->
+
         </section>
     </template>
     <template id="result-page">
@@ -166,7 +201,7 @@
             <div class="result__container">
                 <h2 class="result__title">Результаты игры</h2>
                 <p>Великолепно! Продолжайте в том же духе!</p>
-                <p>Вы набрали <span class="result__score"></span> очков</p>
+                <p class="result__message">Вы набрали <span class="result__score"></span> очков</p>
                 <div class="result__answers">
                     <div>
                         <h3>Правильных ответов <span class="result__right"></span></h3>
