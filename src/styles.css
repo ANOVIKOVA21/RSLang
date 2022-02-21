@@ -233,7 +233,19 @@ body {
 }
 
 .command__deskription {
+    display: flex;
     font-size: 1.2em;
+    align-items: end;
+    gap: 5px;
+    transition: 0.5s;
+}
+
+.command__deskription a {
+    max-height: 30px;
+}
+
+.command__deskription a:hover {
+    opacity: 0.7;
 }
 
 .footer {
