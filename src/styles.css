@@ -1,0 +1,1114 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Neucha", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.4px;
+    line-height: 1.5em;
+    color: white;
+    margin: 0;
+}
+
+.button {
+    font-family: "Neucha", Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    font-weight: 700;
+    padding: 7px 20px;
+    letter-spacing: 0.4px;
+    color: white;
+    border-radius: 30px;
+    background-color: #13cedd;
+    border: 2px solid white;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #1fbac5;
+}
+
+.header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(34, 33, 33);
+}
+
+.header__logo {
+    font-family: "Dancing Script", Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    margin: 0;
+}
+
+.header__logo a {
+    text-decoration: none;
+    color: rgb(202, 104, 206);
+}
+
+.header__logo:hover {
+    cursor: pointer;
+    text-shadow: 0px 0px 6px red;
+    transition: 0.5s;
+}
+
+.start,
+.sprint-rules,
+.sprint-game {
+    padding: 10px;
+    min-height: 80vh;
+    background-image: url('assets/bg/learn-english.jpg');
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.start__nav {
+    flex-shrink: 0;
+}
+
+.start__container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20vh;
+}
+
+.start__title {
+    padding: 0 10px;
+    font-size: 3em;
+    max-width: 1000px;
+    text-align: center;
+    line-height: 1.5em;
+    text-shadow: 2px 2px 5px black;
+    flex-shrink: 1;
+}
+
+.start__nav-list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    font-size: 2em;
+    gap: 20px;
+    text-shadow: 2px 2px 3px black;
+    cursor: pointer;
+}
+
+.start__book a {
+    color: rgb(239, 243, 17);
+    text-decoration: none;
+}
+
+.start__book:hover {
+    text-shadow: 2px 2px 3px rgb(129, 70, 15);
+}
+
+.start__book::before,
+.start__sprint::before,
+.start__audio-call::before {
+    content: '';
+    display: inline-block;
+    position: relative;
+    top: 10px;
+    width: 54px;
+    height: 54px;
+    background: url('assets/img/tutorial.png') no-repeat center/cover;
+}
+
+.start__book:hover::before {
+    background: url('assets/img/book.png') no-repeat center/cover;
+    left: -5px;
+}
+
+.start__sprint a {
+    color: rgb(58, 226, 17);
+    text-decoration: none;
+}
+
+.start__sprint:hover {
+    text-shadow: 2px 2px 3px rgb(15, 129, 21);
+}
+
+.start__sprint::before {
+    background: url('assets/img/speedometer.png') no-repeat center/cover;
+    width: 44px;
+    height: 44px;
+    margin-right: 5px;
+}
+
+.start__sprint:hover:before,
+.start__audio-call:hover:before {
+    transition: 0.5s;
+    transform: scale(1.2, 1.2);
+}
+
+.start__audio-call a {
+    color: rgb(243, 11, 11);
+    text-decoration: none;
+}
+
+.start__audio-call:hover {
+    text-shadow: 2px 2px 3px rgb(129, 28, 15);
+}
+
+.start__audio-call::before {
+    background: url('assets/img/headphones.png') no-repeat center/cover;
+    width: 44px;
+    height: 44px;
+    margin-right: 5px;
+}
+
+.benefits {
+    padding: 10px;
+    background: linear-gradient( 90deg, #39d1b2, #5fade1);
+}
+
+.benefits__title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+
+.benefits__list,
+.footer__info {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.benefits__list {
+    padding: 0;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.benefits__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 200px;
+}
+
+.benefits__card-title {
+    font-size: 1.2em;
+    letter-spacing: 0.9px;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.benefits__card-subtitle {
+    margin: 0;
+    text-align: center;
+}
+
+.benefits__card-img {
+    max-width: 60px;
+    width: 100%;
+}
+
+.command {
+    padding: 10px;
+    background: linear-gradient(90deg, #f598a8, #f6edb2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.command__title {
+    font-size: 2em;
+}
+
+.command__img {
+    display: block;
+    width: 150px;
+    border-radius: 100px;
+}
+
+.command__deskription {
+    display: flex;
+    font-size: 1.2em;
+    align-items: end;
+    gap: 5px;
+    transition: 0.5s;
+}
+
+.command__deskription a {
+    max-height: 30px;
+}
+
+.command__deskription a:hover {
+    opacity: 0.7;
+}
+
+.authorization__form {
+    padding: 10px;
+    color: black;
+    position: relative;
+}
+
+.authorization,
+.authorization__form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.authorization {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: 0.5s;
+    display: none;
+    /* opacity: 0; */
+}
+
+.authorization__close {
+    position: absolute;
+    font-size: 1.5em;
+    top: -10px;
+    right: 0px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.authorization__close:hover {
+    color: red;
+}
+
+.authorization__title {
+    font-size: 1.5em;
+}
+
+.authorization__form-container {
+    width: 300px;
+    border: 2px solid #13cedd;
+}
+
+.authorization__form-container input {
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    border-radius: 5px;
+    border: 2px solid #13cedd;
+    background-color: white;
+}
+
+.authorization__sign-in {
+    font-weight: 400;
+    margin-top: 10px;
+    border: none;
+}
+
+.footer {
+    background-color: rgb(34, 33, 33);
+    padding: 0 10px;
+}
+
+.gratitude {
+    margin: 0;
+    padding-bottom: 5px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.gratitude a {
+    color: white;
+}
+
+.footer__info a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer__info a:hover,
+.gratitude a:hover {
+    opacity: 0.5;
+}
+
+.error404 {
+    color: black;
+    padding: 10px;
+    font-size: 1.5em;
+    min-height: 75vh;
+}
+
+.book__nav,
+.book__training,
+.book__sections,
+.sprint-game__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.sprint-rules,
+.sprint-game,
+.audiocall-rules,
+.audiocall-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('assets/bg/jungle.jpg');
+}
+
+.audiocall-rules,
+.audiocall-game {
+    background: url('assets/bg/sunset.jpg') center/cover;
+}
+
+.sprint-game:focus-visible,
+.audiocall-game:focus-visible {
+    outline: none;
+}
+
+.sprint-game,
+.audiocall-game {
+    display: none;
+}
+
+.sprint-rules__container,
+.sprint-game__container,
+.audiocall-rules__container,
+.audiocall-game__container {
+    margin: 10vh 0;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    background-color: rgba(36, 34, 34, 0.7);
+    border-radius: 30px;
+}
+
+.audiocall-rules__container {
+    padding: 0 15px 10px 15px;
+    position: relative;
+    gap: 10px;
+}
+
+.sprint-rules__title,
+.audiocall-rules__title {
+    font-size: 2.5em;
+}
+
+.sprint-rules__rules,
+.audiocall-rules__rules1 {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.audiocall-rules__rules1 {
+    margin: 0;
+}
+
+.audiocall-rules__rules {
+    max-width: 500px;
+    text-align: justify;
+    font-size: 1.4em;
+    margin: 0;
+}
+
+.sprint-rules__select,
+.audiocall-rules__select {
+    font-family: inherit;
+    font-size: 1.3em;
+    font-weight: 700;
+    padding: 5px 20px;
+    border: 2px solid white;
+    background-color: #13cedd;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.audiocall-rules__select {
+    margin: 0;
+}
+
+.sprint-rules__select:focus-visible {
+    outline: none;
+}
+
+.sprint-game__container {
+    border: 2px solid white;
+    padding: 10px;
+    max-width: 400px;
+    width: 100%;
+    gap: 30px;
+}
+
+.timer {
+    border-radius: 50px;
+    border: 3px solid white;
+    padding: 10px 15px;
+    text-align: center;
+    align-self: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.sprint-game__info {
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+}
+
+.sprint-game__score {
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 0px 0px 3px black;
+}
+
+.sprint-game__points-info {
+    color: #0bff34;
+    text-shadow: 0px 0px 3px black;
+    font-size: 1.1em;
+}
+
+.sprint-game__points {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    gap: 5px;
+}
+
+.sprint-game__point {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: #6a6e6e;
+}
+
+.sprint-game__point-active {
+    background: url('assets/svg/сheck-mark.svg') no-repeat white center/cover;
+}
+
+.sprint-game__btns {
+    position: relative;
+}
+
+.sprint-game__true-btn {
+    background-color: rgb(38, 202, 23);
+    margin-right: 10px;
+}
+
+.sprint-game__true-btn::after {
+    content: '🠔';
+    position: absolute;
+    font-size: 1.5em;
+    bottom: -12px;
+    left: 25px;
+}
+
+.sprint-game__false-btn {
+    background-color: rgb(211, 38, 26);
+    margin-bottom: 20px;
+}
+
+.sprint-game__false-btn::after {
+    content: '🠖';
+    font-size: 1.5em;
+    position: absolute;
+    bottom: -12px;
+    right: 25px;
+}
+
+.sprint-game__eng-word,
+.sprint-game__translation {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.sprint-game__img {
+    width: 84px;
+    height: 84px;
+    background-image: url('assets/animals/rabbit.png');
+    background-size: cover;
+}
+
+.start-sprint-btn {
+    margin-bottom: 20px;
+}
+
+.audiocall-game {
+    min-height: 90vh;
+}
+
+.audiocall-game__container {
+    max-width: 80vw;
+    width: 100%;
+    gap: 20px;
+    background-color: transparent;
+}
+
+.audiocall-game__listen {
+    display: block;
+    max-width: 150px;
+    max-height: 150px;
+    padding: 7px;
+    border-radius: 50px;
+    box-shadow: 0 0 6px white;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: rgba(36, 34, 34, 0.7);
+}
+
+.audiocall-game__listen:hover {
+    background-color: rgba(110, 102, 106, 0.5);
+}
+
+.audiocall-game__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 1.8em;
+    list-style-type: none;
+    padding: 0;
+}
+
+.audiocall-game__option {
+    cursor: pointer;
+    color: #8d5ecb;
+    transition: 1s;
+    padding: 10px;
+    border: 1.5px solid transparent;
+}
+
+.audiocall-game__right-answer {
+    color: #0d930d;
+    text-decoration: underline;
+}
+
+.audiocall-game__wrong-answer {
+    color: #dd483d;
+    text-decoration: line-through;
+}
+
+.audiocall-game__option:hover {
+    border: 1.5px solid black;
+}
+
+.skip-btn {
+    font-weight: 200;
+    background-color: transparent;
+    color: #8d5ecb;
+    border: 2px solid #8d5ecb;
+}
+
+.skip-btn:hover,
+.skip-btn:focus-visible {
+    color: white;
+    border: 2px solid white;
+    background-color: #13cedd;
+    outline: none;
+}
+
+.info {
+    position: absolute;
+    padding: 1px 10px;
+    font-size: 1.2em;
+    top: 20px;
+    right: 20px;
+    border-radius: 50px;
+    border: 2px solid rgb(136, 183, 236);
+    font-style: italic;
+    font-family: 'Times New Roman';
+    cursor: pointer;
+}
+
+.info::after {
+    content: "Управление с клавиатуры. Используйте цифрры (1-5), чтобы выбрать вариант ответа, Enter - чтобы услышать слово, пробел - чтобы выбрать кнопку 'Не знаю' или перейти к следующему слову";
+    display: block;
+    position: absolute;
+    font-size: 1em;
+    font-family: "Neucha", Arial, Helvetica, sans-serif;
+    padding: 5px 10px;
+    width: 230px;
+    color: #524f4f;
+    background-color: rgb(189, 218, 226);
+    transition: 0.5s;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 10px;
+}
+
+.info:hover {
+    background-color: #13cedd;
+}
+
+.info:hover::after {
+    opacity: 1;
+}
+
+.book {
+    padding: 10px;
+    background: linear-gradient(90deg, #fee1e9, #edd5e1, #aed0db);
+}
+
+.book__section {
+    cursor: pointer;
+    background: linear-gradient( 90deg, #e9b4c3, #c8a1d3);
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    transition: 0.5s;
+}
+
+.book__section a {
+    text-decoration: none;
+    color: white;
+}
+
+.book__section:hover {
+    transform: scale(1.2, 1.2)
+}
+
+.book__section_active {
+    background: none;
+}
+
+.book__section_active a {
+    color: black;
+}
+
+.book__title {
+    text-shadow: 0px 0px 3px black;
+}
+
+.book__sprint,
+.book__audio-call {
+    width: 44px;
+    height: 44px;
+    transition: 0.5s;
+}
+
+.book__sprint:hover,
+.book__audio-call:hover {
+    box-shadow: 0px 0px 3px rgb(247, 245, 245);
+    transform: scale(1.2, 1.2)
+}
+
+.book__sprint {
+    background: url('assets/img/speedometer.png') no-repeat center/cover;
+}
+
+.book__audio-call {
+    background: url('assets/img/headphones.png') no-repeat center/cover;
+}
+
+.book__nav-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: baseline;
+    font-size: 1em;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px black;
+}
+
+.book__prev-page,
+.book__next-page {
+    text-decoration: none;
+}
+
+.words-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.word-card {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    border: 2px solid blue;
+    background-color: rgb(92, 92, 129);
+    gap: 15px;
+    border-radius: 60px 30px;
+}
+
+.word-card__description {
+    display: flex;
+    gap: 20px;
+}
+
+.word-card__title {
+    max-width: calc( ( 90% - 40px) / 3);
+}
+
+.word-card__value,
+.word-card__example {
+    max-width: calc( ( 100% - 40px) / 3);
+    flex-shrink: 1;
+}
+
+.word-card__img {
+    background-position: center;
+    background-size: cover;
+    border-radius: 60px 0 0 0;
+    max-width: 300px;
+    min-height: 190px;
+    width: 100%;
+}
+
+.word-card__btns {
+    position: absolute;
+    display: flex;
+    right: 10px;
+    gap: 5px;
+}
+
+.word-card__listen,
+.word-card__difficult,
+.word-card__studied {
+    border-radius: 50px;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.word-card__listen {
+    background: url("assets/img/volume.png") no-repeat center/80% 90%;
+}
+
+.word-card__difficult {
+    background: url("assets/svg/bookmark.svg") no-repeat center/80% 90%;
+}
+
+.word-card__studied {
+    background: url("assets/svg/сheck-mark.svg") no-repeat center/80% 90%;
+}
+
+.word-card__difficult::after,
+.word-card__studied::after {
+    content: "Добавить сложное слово в словарь";
+    position: absolute;
+    font-size: initial;
+    font-style: italic;
+    left: calc(0vw - 40px);
+    top: -50px;
+    width: 150px;
+    padding: 2px;
+    color: black;
+    background-color: blanchedalmond;
+    transition: 0.5s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.word-card__difficult:hover::after,
+.word-card__studied:hover::after {
+    opacity: 1;
+}
+
+.word-card__studied::after {
+    content: "Пометить как изученное";
+    width: 100px;
+    left: 0vw;
+}
+
+@media (max-width:1400px) {
+    .start {
+        background-position: center;
+    }
+    .start__container {
+        margin-top: 0;
+    }
+    .start__title {
+        max-width: 500px;
+    }
+}
+
+@media (max-width:1050px) {
+    .info::after {
+        left: calc(0vw - 230px);
+    }
+}
+
+@media (max-width:900px) {
+    .start__title {
+        font-size: 2.2em;
+    }
+    .start__nav-list {
+        font-size: 1.5em;
+        padding: 0;
+    }
+    .start__book::before,
+    .start__sprint::before,
+    .start__audio-call::before {
+        width: 40px;
+        height: 40px;
+    }
+    .word-card__description {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 0;
+    }
+    .word-card__title {
+        margin: 0 0 5px 0;
+    }
+    .word-card__title {
+        max-width: 70%;
+    }
+    .word-card__value,
+    .word-card__example {
+        max-width: 100%;
+    }
+    .word-card p {
+        margin: 5px 0;
+    }
+    .word-card__example p:last-child {
+        margin-bottom: 0;
+    }
+    .word-card__listen,
+    .word-card__difficult,
+    .word-card__studied {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.result {
+    position: fixed;
+    top: 10px;
+    left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 98vw;
+    height: 98vh;
+    background-color: rgba(247, 247, 247, 0.5);
+}
+
+.result__container {
+    max-width: 85vw;
+    max-height: 95vh;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.result__score {
+    font-weight: bold;
+}
+
+.result__answers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.result__right,
+.result__wrong {
+    padding: 5px 8px;
+    background-color: #10d431;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.result__right:hover,
+.result__wrong:hover {
+    opacity: 0.7;
+}
+
+.result__wrong {
+    background-color: #d41d10;
+}
+
+.result__right-list,
+.result__wrong-list {
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    overflow: auto;
+    max-height: 40vh;
+    display: none;
+}
+
+.result__show-list {
+    display: flex;
+}
+
+.result__list-item {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    color: black;
+}
+
+.result__audio {
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border: none;
+    background: url("assets/img/volume.png") no-repeat center/80% 90%;
+    transition: 0.5s;
+}
+
+.result__audio:hover {
+    transform: scale(1.1, 1.1);
+}
+
+.result__back {
+    text-decoration: none;
+}
+
+@media (max-width:800px) {
+    .audiocall-game__container {
+        gap: 0;
+    }
+    .audiocall-game__listen {
+        max-width: 100px;
+    }
+}
+
+@media (max-width:700px) {
+    body {
+        font-size: 15px;
+    }
+    .header__logo {
+        font-size: 1.5em;
+    }
+    .button {
+        padding: 5px 15px;
+    }
+    .start {
+        min-height: 60vh;
+    }
+    .start__container {
+        flex-wrap: wrap;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+    }
+    .start__nav {
+        flex-shrink: 1;
+    }
+    .start__nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0;
+        padding-bottom: 10px;
+    }
+    .start__title {
+        margin-top: 10px;
+    }
+    .book__nav,
+    .book__training,
+    .book__sections {
+        gap: 10px;
+        margin: 0 0 10px 0;
+    }
+    .book__sprint,
+    .book__audio-call {
+        width: 40px;
+        height: 40px;
+    }
+    .word-card__title {
+        max-width: 50%;
+    }
+    .result__container {
+        overflow-y: auto;
+    }
+    .result__title {
+        margin-top: 0;
+    }
+    .result__right-list,
+    .result__wrong-list {
+        height: 100%;
+    }
+    .result__word {
+        margin: 0;
+    }
+}
+
+@media (max-width:600px) {
+    body {
+        font-size: 17px;
+    }
+    .words-list {
+        align-items: center;
+    }
+    .word-card {
+        max-width: 500px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .word-card__description {
+        text-align: center;
+        justify-content: center;
+    }
+    .word-card__title {
+        max-width: 100%;
+    }
+    .word-card__btns {
+        flex-direction: column;
+    }
+    .word-card__difficult::after,
+    .word-card__studied::after {
+        display: none;
+    }
+    .result__right-list,
+    .result__wrong-list {
+        padding: 0;
+    }
+    .sprint-game__container {
+        gap: 15px;
+    }
+    .info {
+        display: none;
+    }
+    .audiocall-game__options {
+        gap: 0;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width:400px) {
+    body {
+        font-size: 15px;
+    }
+    .audiocall-game__listen {
+        max-width: 80px;
+    }
+}
+
+@media (min-height:701px) {
+    .start {
+        min-height: 50vh;
+    }
+}

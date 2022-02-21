@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Dongle:wght@400;700&family=Neucha&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <title>RSLang</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header__logo"> <a href="/">RS LANG</a> </h1>
+        <button type="button" class="header__sign-in button">Войти</button>
+        <article class="authorization">
+            <form class="authorization__form">
+                <button type="button" class="authorization__close">✘</button>
+                <fieldset class="authorization__form-container">
+                    <legend class="authorization__title">Авторизация</legend>
+                    <label for="user-name">
+                        Имя: <input type="text" id="user-name" name="user_name" placeholder="Введите имя" minlength="3"
+                            required>
+                    </label>
+                    <label for="mail">
+                        E-mail: <input type="email" id="email" name="user_email" placeholder="Введите адресс почты"
+                            minlength="4" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}" required>
+                    </label>
+                    <label for="password">
+                        Пароль: <input type="password" id="password" name="user_password" placeholder="Введите пароль"
+                            minlength="8" autocomplete="current-password" required></label>
+                    <button type="submit" class="authorization__sign-in button">Зарегистрироваться</button>
+                </fieldset>
+            </form>
+        </article>
+    </header>
+    <main id="main"></main>
+    <template id="start-page">
+        <section class="start">
+            <div class="start__container">
+                <nav class="start__nav">
+                    <ul class="start__nav-list">
+                        <li class="start__book"><a href="#/book/0/0">Учебник</a></li>
+                        <li class="start__sprint"><a href="#/sprint">Спринт</a></li>
+                        <li class="start__audio-call"><a href="#/audioCall">Аудиовызов</a></li>
+                    </ul>
+                </nav>
+                <h2 class="start__title">Учите английский язык бесплатно, весело и эффективно!</h2>
+            </div>
+        </section>
+
+        <section class="benefits">
+            <h2 class="benefits__title">Наши преимущества</h2>
+            <ul class="benefits__list">
+                <li class="benefits__card">
+                    <h3 class="benefits__card-title">Бесплатное обучение</h3>
+                    <img src="./benefits/free.png" alt="free" class="benefits__card-img">
+                    <p class="benefits__card-subtitle">Английский может учить каждый</p>
+                </li>
+                <li class="benefits__card">
+                    <h3 class="benefits__card-title">Нескучные уроки</h3>
+                    <img src="./benefits/like.png" alt="like" class="benefits__card-img">
+                    <p class="benefits__card-subtitle">Уроки в виде увлекательных игр</p>
+                </li>
+                <li class="benefits__card">
+                    <h3 class="benefits__card-title">Эффективность</h3>
+                    <img src="./benefits/target.png" alt="target" class="benefits__card-img">
+                    <p class="benefits__card-subtitle">Наше обучение эффективно развивает навыки устной и письменной
+                        речи
+                    </p>
+                </li>
+                <li class="benefits__card">
+                    <h3 class="benefits__card-title">Обширный учебник</h3>
+                    <img src="./benefits/book.png" alt="book" class="benefits__card-img">
+                    <p class="benefits__card-subtitle"> Учебник содержит более 3500 часто употребляемых слов с
+                        транскрипцией и примером
+                    </p>
+                </li>
+                <li class="benefits__card">
+                    <h3 class="benefits__card-title">Стимул к учёбе</h3>
+                    <img src="./benefits/trophy.png" alt="trophy" class="benefits__card-img">
+                    <p class="benefits__card-subtitle">С игровым подходом ежедневные занятия входят в привычку</p>
+                </li>
+            </ul>
+        </section>
+        <section class="command">
+            <h2 class="command__title">О команде</h2>
+            <img src="./girl_sm.jpg" alt="girl" class="command__img">
+            <p class="command__deskription">Над созданием приложения трудилась Новикова Анна<a
+                    href="https://github.com/ANOVIKOVA21"><img src="./svg/github.svg" alt="github"></a></p>
+
+        </section>
+    </template>
+
+    <template id="book-page">
+        <section class="book">
+            <h2 class="book__title">Учебник</h2>
+            <nav class="book__nav">
+                <ul class="book__sections">
+                    <li class="book__section book__section_active" data-group="1"><a href="#/book/0/0">Раздел 1</a>
+                    </li>
+                    <li class="book__section" data-group="2"><a href="#/book/1/0">Раздел 2</a></li>
+                    <li class="book__section" data-group="3"><a href="#/book/2/0">Раздел 3</a></li>
+                    <li class="book__section" data-group="4"><a href="#/book/3/0">Раздел 4</a></li>
+                    <li class="book__section" data-group="5"><a href="#/book/4/0">Раздел 5</a></li>
+                    <li class="book__section" data-group="6"><a href="#/book/5/0">Раздел 6</a></li>
+                </ul>
+                <div class="book__training">
+                    <a href="#/sprint?levels=false" class="book__sprint"></a>
+                    <a href="#/audioCall?levels=false" class="book__audio-call"></a>
+                </div>
+            </nav>
+            <div class="words-list"></div>
+            <div class="book__nav-btns">
+                <a href="#/book/" class="book__prev-page button" disabled>Назад</a>
+                <span class="book__curr-page">1</span>/ 30
+                <a href="#/book/" class="book__next-page button">Следующая</a>
+            </div>
+        </section>
+    </template>
+    <template id="word-card-temp">
+        <div class="word-card">
+            <div class="word-card__img"></div>
+            <div class="word-card__description">
+                <h3 class="word-card__title"></h3>
+                <div class="word-card__value">Значение:
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="word-card__example"> Пример:
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+            <div class="word-card__btns">
+                <button type="button" class="word-card__listen button"></button>
+                <button type="button" class="word-card__difficult button"></button>
+                <button type="button" class="word-card__studied button"></button>
+            </div>
+        </div>
+    </template>
+    <template id="sprint-page">
+        <article class="sprint-rules">
+            <div class="sprint-rules__container">
+                <h2 class="sprint-rules__title">Cпринт</h2>
+                <p class="sprint-rules__rules">В течении минуты попытайтесь угадать как можно больше слов! С помощью
+                    кнопок или клавиатуры выбирите соответствует ли перевод предложенному слову.</p>
+                <select name="levels" class="sprint-rules__select">
+                    <option value="1">Уровень 1</option>
+                    <option value="2">Уровень 2</option>
+                    <option value="3">Уровень 3</option>
+                    <option value="4">Уровень 4</option>
+                    <option value="5">Уровень 5</option>
+                    <option value="6">Уровень 6</option>
+                </select>
+                <button type="button" class="start-sprint-btn button">Вперед</button>
+            </div>
+        </article>
+        <section class="sprint-game" tabindex="0">
+            <div class="sprint-game__info">
+                <span class="timer">60</span>
+                <div class="sprint-game__score-info">
+                    <h2 class="sprint-game__score">0</h2>
+                    <p class="sprint-game__points-info">+<span class="sprint-game__extra-points">10</span> за каждый
+                        правильный ответ</p>
+                </div>
+            </div>
+            <div class="sprint-game__container">
+                <ul class="sprint-game__points">
+                    <li class="sprint-game__point"></li>
+                    <li class="sprint-game__point"></li>
+                    <li class="sprint-game__point"></li>
+                </ul>
+                <div class="sprint-game__img"></div>
+                <p class="sprint-game__eng-word">banana</p>
+                <p class="sprint-game__translation">банан</p>
+                <div class="sprint-game__btns">
+                    <button type="button" class="sprint-game__true-btn button">Верно</button>
+                    <button type="button" class="sprint-game__false-btn button">Неверно</button>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="audiocall-page">
+        <article class="audiocall-rules">
+            <div class="audiocall-rules__container">
+                <div class="info">i</div>
+                <h2 class="audiocall-rules__title">Аудиовызов</h2>
+                <p class="audiocall-rules__rules1">Давайте проверим насколько хорошо Вы воспринимаете английскую речь на
+                    слух!
+                </p>
+                <p class="audiocall-rules__rules">Вы услышите слово и увидите 5 вариантов его перевода. Ваша задача с
+                    помощью кнопок или клавиатуры выбрать правильный перевод озвученного слова. Если Вы затрудняетесь с
+                    ответом нажмите на
+                    кнопку 'Не знаю', но учтите, что этот ответ будет засчитан как неправильный.</p>
+                <p class="audiocall-rules__rules"> Удачи!</p>
+                <select name="levels" class="audiocall-rules__select">
+                    <option value="1">Уровень 1</option>
+                    <option value="2">Уровень 2</option>
+                    <option value="3">Уровень 3</option>
+                    <option value="4">Уровень 4</option>
+                    <option value="5">Уровень 5</option>
+                    <option value="6">Уровень 6</option>
+                </select>
+                <button type="button" class="start-audiocall-btn button">Вперед</button>
+            </div>
+        </article>
+        <section class="audiocall-game" tabindex="0">
+            <div class="audiocall-game__container">
+                <img src="./svg/speaker.png" alt="speaker" class="audiocall-game__listen">
+                <ul class="audiocall-game__options">
+                    <li class="audiocall-game__option">banana</li>
+                    <li class="audiocall-game__option">literature</li>
+                    <li class="audiocall-game__option">language</li>
+                    <li class="audiocall-game__option">attend</li>
+                    <li class="audiocall-game__option">invite</li>
+                </ul>
+                <button type="button" class="skip-btn button">Не знаю</button>
+            </div>
+            <!-- <h2>audio-call</h2> -->
+
+        </section>
+    </template>
+    <template id="result-page">
+        <article class="result">
+            <div class="result__container">
+                <h2 class="result__title">Результаты игры</h2>
+                <p>Великолепно! Продолжайте в том же духе!</p>
+                <p class="result__message">Вы набрали <span class="result__score"></span> очков</p>
+                <div class="result__answers">
+                    <div>
+                        <h3>Правильных ответов <span class="result__right"></span></h3>
+                        <ul class="result__right-list"></ul>
+                    </div>
+                    <div>
+                        <h3>Ошибок <span class="result__wrong"></span></h3>
+                        <ul class="result__wrong-list"></ul>
+                    </div>
+                </div>
+                <!-- <a href="/"class="result__repeat button">Играть снова</a> -->
+                <a href="/" class="result__back button">На главную</a>
+            </div>
+        </article>
+    </template>
+    <footer class="footer">
+        <ul class="footer__info">
+            <li><a href="https://github.com/ANOVIKOVA21">ANNA NOVIKOVA</a></li>
+            <li>2022</li>
+            <li>
+                <a href="https://rs.school/js/"><img src="./svg/rs_school.svg" alt="logo rs school"></a>
+            </li>
+        </ul>
+        <p class="gratitude">Благодарность за бесплатные картинки: <a href='https://ru.freepik.com/vectors/abstract'>ru.freepik.com</a>, <a href="https://icons8.com">Icons8</a>
+        </p>
+    </footer>
+</body>
+
+</html>
