@@ -1,6 +1,6 @@
 import { getWords, GetWordsData } from './request';
 import { getArrRandomNumbers, getRandomNum } from './general-functions';
-import { levelOptions } from './options';
+import { levelOptions, options } from './options';
 import { showResult } from './result';
 // audio: "files/20_1598.mp3"
 // audioExample: "files/20_1598_example.mp3"
@@ -21,18 +21,23 @@ import { showResult } from './result';
 // 2 этап - 20
 // 3 этап - 40
 // 4 этап - 80
-
-export async function getLevelData(group: number, page?: number) {
+export function getAudio(link: string) {
+  const url = `https://anna-learnenglish.herokuapp.com/${link}`;
+  const audio = new Audio(url);
+  audio.load();
+  return audio;
+}
+export async function getLevelData(amountOfArrs: number, group: number, page?: number) {
   const promiseArr = [];
   if (page || page === 0) {
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < amountOfArrs; i++) {
       if (i === 0) promiseArr.push(getWords(group, page));
       if (page === 0) break;
       page -= 1;
       promiseArr.push(getWords(group, page));
     }
   } else {
-    const randomPages = getArrRandomNumbers(6);
+    const randomPages = getArrRandomNumbers(amountOfArrs, options.totalPages);
     randomPages.forEach((randomPage) => promiseArr.push(getWords(group - 1, randomPage)));
   }
   const data = Promise.all(promiseArr);
@@ -66,7 +71,7 @@ export function startTimer() {
   updateTime(timer);
   interval = setInterval(() => decreaseTime(timer), 1000);
 }
-export async function start(words: GetWordsData[]) {
+export async function startSprint(words: GetWordsData[]) {
   if (levelOptions.questionNum === words.length) levelOptions.time = 0;
   const engWordEl = document.querySelector('.sprint-game__eng-word') as HTMLParagraphElement;
   const wordTranslationEl = document.querySelector('.sprint-game__translation') as HTMLParagraphElement;
@@ -82,6 +87,31 @@ export async function start(words: GetWordsData[]) {
 
   levelOptions.rightAnswer = rightAnswer;
   levelOptions.programAnswer = wordTranslationEl.innerHTML;
+}
+export async function startAudioCall(words: GetWordsData[]) {
+  if (levelOptions.questionNum === 20) {
+    showResult();
+    const scoreMessage = document.querySelector('.result__message') as HTMLParagraphElement;
+    scoreMessage.style.display = 'none';
+    return;
+  }
+  const listenBtn = document.querySelector('.audiocall-game__listen');
+  const optionsTranslation = document.querySelectorAll<HTMLLIElement>('.audiocall-game__option');
+  const rightAnswer = words[levelOptions.questionNum].wordTranslate;
+  const randomNum = getRandomNum(0, optionsTranslation.length - 1);
+
+  listenBtn?.setAttribute('data-audio', `${words[levelOptions.questionNum].audio}`);
+  getAudio(words[levelOptions.questionNum].audio).play();
+  const randomWordsNums = getArrRandomNumbers(5, words.length - 1, levelOptions.questionNum);
+  optionsTranslation.forEach((option, index) => (option.innerHTML = words[randomWordsNums[index]].wordTranslate));
+  optionsTranslation[randomNum].innerHTML = `${rightAnswer}`;
+
+  levelOptions.currentWordId = words[levelOptions.questionNum].id;
+  levelOptions.questionNum++;
+
+  console.log(rightAnswer);
+
+  levelOptions.rightAnswer = rightAnswer;
 }
 export function checkRightAnswers() {
   const sprintPointsEl = document.querySelectorAll('.sprint-game__point');
