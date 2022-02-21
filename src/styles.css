@@ -213,6 +213,29 @@ body {
     width: 100%;
 }
 
+.command {
+    padding: 10px;
+    background: linear-gradient(90deg, #f598a8, #f6edb2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.command__title {
+    font-size: 2em;
+}
+
+.command__img {
+    display: block;
+    width: 150px;
+    border-radius: 100px;
+}
+
+.command__deskription {
+    font-size: 1.2em;
+}
+
 .footer {
     background-color: rgb(34, 33, 33);
     padding: 0 10px;
