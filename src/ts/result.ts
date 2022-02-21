@@ -1,4 +1,5 @@
 import { levelOptions, GetGameWord } from './options';
+import { getAudio } from './game';
 function addListItemAndListers(gameWords: GetGameWord[], parent: HTMLDivElement) {
   const words = levelOptions.words;
   gameWords.forEach((obj, index) => {
@@ -9,8 +10,7 @@ function addListItemAndListers(gameWords: GetGameWord[], parent: HTMLDivElement)
     parent.insertAdjacentHTML('beforeend', listItem);
     const audioBtns = parent.querySelectorAll('.result__audio');
     audioBtns[index].addEventListener('click', () => {
-      const url = `https://anna-learnenglish.herokuapp.com/${words[obj.questionNum].audio}`;
-      const audio = new Audio(url);
+      const audio = getAudio(words[obj.questionNum].audio);
       audio.play();
     });
   });
