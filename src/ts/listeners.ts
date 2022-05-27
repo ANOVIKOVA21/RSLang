@@ -197,7 +197,6 @@ export function addListeners() {
   });
 }
 export function addAuthorizationListeners() {
-  debugger;
   const authorization = document.querySelector('.authorization') as HTMLElement;
   const signInBtn = document.querySelector('.header__sign-in');
   const closeBtn = document.querySelector('.authorization__close');

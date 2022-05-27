@@ -801,10 +801,12 @@ body {
 
 .word-card__difficult {
     background: url("assets/svg/bookmark.svg") no-repeat center/80% 90%;
+    display: none;
 }
 
 .word-card__studied {
     background: url("assets/svg/сheck-mark.svg") no-repeat center/80% 90%;
+    display: none;
 }
 
 .word-card__difficult::after,
