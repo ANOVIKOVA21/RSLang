@@ -4,11 +4,12 @@
 
 body {
     font-family: "Neucha", Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 0.4px;
     line-height: 1.5em;
     color: white;
     margin: 0;
+    padding: 0;
 }
 
 .button {
@@ -35,6 +36,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: rgb(34, 33, 33);
+    min-height: 5vh;
 }
 
 .header__logo {
@@ -58,7 +60,7 @@ body {
 .sprint-rules,
 .sprint-game {
     padding: 10px;
-    min-height: 80vh;
+    min-height: 85vh;
     background-image: url('assets/bg/learn-english.jpg');
     background-size: cover;
     background-position: center bottom;
@@ -72,7 +74,7 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 15px;
-    margin-top: 20vh;
+    margin-top: 15vh;
 }
 
 .start__title {
@@ -317,12 +319,12 @@ body {
 
 .footer {
     background-color: rgb(34, 33, 33);
-    padding: 0 10px;
+    padding: 0 10px 5px 0;
+    height: 10vh;
 }
 
 .gratitude {
     margin: 0;
-    padding-bottom: 5px;
     font-size: 0.8em;
     text-align: center;
 }
@@ -370,6 +372,7 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url('assets/bg/jungle.jpg');
+    min-height: 85vh;
 }
 
 .audiocall-rules,
@@ -385,6 +388,7 @@ body {
 .sprint-game,
 .audiocall-game {
     display: none;
+    height: 95vh;
 }
 
 .sprint-rules__container,
@@ -758,6 +762,8 @@ body {
 .word-card__description {
     display: flex;
     gap: 20px;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .word-card__title {
@@ -840,6 +846,7 @@ body {
 @media (max-width:1400px) {
     .start {
         background-position: center;
+        min-height: 50vh;
     }
     .start__container {
         margin-top: 0;
@@ -1109,8 +1116,9 @@ body {
     }
 }
 
-@media (min-height:701px) {
+
+/* @media (min-height:701px) {
     .start {
         min-height: 50vh;
     }
-}
+} */
