@@ -1,6 +1,7 @@
 import { options, levelOptions } from './options';
 import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
 import { shuffle } from './general-functions';
+import { createUser, signIn } from './request';
 export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElement) {
   const currentBookPage = Number(location.hash.slice(-1));
   const minCurrentPage = 0;
@@ -196,26 +197,65 @@ export function addListeners() {
     }
   });
 }
+export function showUser(userName: string) {
+  const signInBtn = document.querySelector('.header__sign-in') as HTMLButtonElement;
+  const userContainer = document.querySelector('.header__user') as HTMLDivElement;
+  const userGreeting = document.querySelector('.header__user-greeting') as HTMLParagraphElement;
+  userContainer.style.display = 'flex';
+  signInBtn.style.display = 'none';
+  userGreeting.textContent = `Привет, ${userName}!`;
+}
 export function addAuthorizationListeners() {
   const authorization = document.querySelector('.authorization') as HTMLElement;
-  const signInBtn = document.querySelector('.header__sign-in');
-  const closeBtn = document.querySelector('.authorization__close');
+  const signInBtn = document.querySelector('.header__sign-in') as HTMLButtonElement;
   const authorizationBtn = document.querySelector('.authorization__sign-in');
+  const closeBtn = document.querySelector('.authorization__close') as HTMLButtonElement;
+  const registrationBtn = document.querySelector('.authorization__registration');
   const userName = document.getElementById('user-name') as HTMLInputElement;
   const email = document.getElementById('email') as HTMLInputElement;
   const password = document.getElementById('password') as HTMLInputElement;
-  signInBtn?.addEventListener('click', () => {
+  const userBtn = document.querySelector('.header__user-img');
+  const signOutEl = document.querySelector('.header__sign-out') as HTMLParagraphElement;
+  signInBtn.addEventListener('click', () => {
     authorization.style.display = 'flex';
   });
-  closeBtn?.addEventListener('click', () => {
+  closeBtn.addEventListener('click', () => {
     authorization.style.display = 'none';
   });
-  authorizationBtn?.addEventListener('click', (ev) => {
+  registrationBtn?.addEventListener('click', async (ev) => {
     if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
     ev.preventDefault();
     console.log('valid');
+    const newUser = await createUser({ name: userName.value, email: email.value, password: password.value });
+    console.log(newUser);
+    if (newUser) {
+      const user = await signIn({ email: email.value, password: password.value });
+      console.log(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      closeBtn.click();
+      showUser(userName.value);
+    }
+
     // console.log('email', email.validity.valid);
     // console.log('password valid', password.validity.valid);
     // console.log('password', password.value);
+  });
+  authorizationBtn?.addEventListener('click', async (ev) => {
+    if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
+    ev.preventDefault();
+    const user = await signIn({ email: email.value, password: password.value });
+    console.log(user);
+    if (user) {
+      closeBtn.click();
+      showUser(userName.value);
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  });
+  userBtn?.addEventListener('click', () => {
+    signOutEl.classList.toggle('hide');
+  });
+  signOutEl.addEventListener('click', () => {
+    localStorage.removeItem('user');
+    location.reload();
   });
 }
