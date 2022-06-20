@@ -14,6 +14,11 @@
     <header class="header">
         <h1 class="header__logo"> <a href="/">RS LANG</a> </h1>
         <button type="button" class="header__sign-in button">Войти</button>
+        <div class="header__user">
+            <p class="header__user-greeting"></p>
+            <img src="./user/user.png" alt="user" class="header__user-img">
+        </div>
+        <p class="header__sign-out hide">Выйти</p>
         <article class="authorization">
             <form class="authorization__form">
                 <button type="button" class="authorization__close">✘</button>
@@ -30,7 +35,9 @@
                     <label for="password">
                         Пароль: <input type="password" id="password" name="user_password" placeholder="Введите пароль"
                             minlength="8" autocomplete="current-password" required></label>
-                    <button type="submit" class="authorization__sign-in button">Зарегистрироваться</button>
+                    <button type="submit" class="authorization__registration button">Зарегистрироваться</button>
+                    <p>Уже зарегестрированы?</p>
+                    <button type="submit" class="authorization__sign-in button">Войти</button>
                 </fieldset>
             </form>
         </article>
