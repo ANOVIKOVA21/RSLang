@@ -20,3 +20,41 @@ export function getArrRandomNumbers(arrLength: number, maxNum: number, exception
 export function shuffle(arr: GetWordsData[]) {
   return arr.sort(() => Math.random() - 0.5);
 }
+
+export function showWarning(warning: string) {
+  const formContainer = document.querySelector('.authorization__form') as HTMLFieldSetElement;
+  const warningEl = document.createElement('div');
+  warningEl.classList.add('warning');
+  warningEl.textContent = warning;
+  formContainer.appendChild(warningEl);
+  setTimeout(() => {
+    warningEl.remove();
+  }, 5000);
+}
+export function showLoading(parent: HTMLElement) {
+  // debugger
+  const loadingContainer = document.createElement('div');
+  loadingContainer.classList.add('loading');
+  loadingContainer.style.width = parent.offsetWidth + 'px';
+  // parent.style.position = 'relative';
+  parent.appendChild(loadingContainer);
+}
+export function removeLoading() {
+  const loadingContainer = document.querySelector('.loading') as HTMLDivElement;
+  loadingContainer.remove();
+}
+export function parseJwt(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  return JSON.parse(jsonPayload);
+}

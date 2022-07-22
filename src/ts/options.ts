@@ -36,3 +36,17 @@ export const levelOptions: GetLevelOptions = {
   userWrongAnswers: [],
   rightAnswersInRow: 0,
 };
+// export interface GetUserOptions {
+//   signIn: boolean,
+//   id: string,
+//   name:string,
+//   token:string,
+//   refreshToken:string
+// };
+// export const userOptions:GetUserOptions ={
+//   signIn: false,
+//   id: '',
+//   name:'',
+//   token:'',
+//   refreshToken:'',
+// };

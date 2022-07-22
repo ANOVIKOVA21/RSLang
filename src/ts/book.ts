@@ -1,23 +1,24 @@
-import { getWords } from './request';
+import { getWords, getUserWord } from './request';
 import { options } from './options';
-export async function renderBookPage(group = 0, page = 0) {
+export async function renderBookPage(wordCardTemp: HTMLTemplateElement, group = 0, page = 0) {
   const wordsDatas = await getWords(group, page);
   const bookPageTemp = document.getElementById('book-page') as HTMLTemplateElement;
   const bookGroups = bookPageTemp.content.querySelectorAll('.book__section');
   const currentPageEl = bookPageTemp.content.querySelector('.book__curr-page') as HTMLSpanElement;
   const parent = bookPageTemp.content.querySelector('.words-list') as HTMLDivElement;
-  const wordCardTemp = document.querySelector('#word-card-temp') as HTMLTemplateElement;
+  // const wordCardTemp = document.querySelector('#word-card-temp') as HTMLTemplateElement;
   bookGroups.forEach((bookGroup) => bookGroup.classList.remove('book__section_active'));
   bookGroups[group].classList.add('book__section_active');
   currentPageEl.innerHTML = `${page + 1}`;
   parent.innerHTML = '';
-  wordsDatas.forEach((data) => {
+  wordsDatas.forEach(async (data) => {
     const wordCard = wordCardTemp.content.cloneNode(true) as HTMLDivElement;
     const wordImg = wordCard.querySelector('.word-card__img') as HTMLDivElement;
     const wordTitle = wordCard.querySelector('.word-card__title') as HTMLElement;
     const wordValues = wordCard.querySelectorAll('.word-card__value p');
     const wordExamples = wordCard.querySelectorAll('.word-card__example p');
     const wordBtnsContainer = wordCard.querySelector('.word-card__btns');
+    const answersInLineEl = document.getElementById('answers-in-line');
     wordImg.style.backgroundImage = `url("https://anna-learnenglish.herokuapp.com/${data.image}")`;
     wordTitle.innerHTML = `${data.word} ${data.transcription} ${data.wordTranslate}`;
     wordValues[0].innerHTML = `${data.textMeaning}`;
@@ -27,9 +28,13 @@ export async function renderBookPage(group = 0, page = 0) {
     parent.appendChild(wordCard);
     const audio: string[] = [data.audio, data.audioMeaning, data.audioExample];
     wordBtnsContainer?.setAttribute('data-audio', `${audio}`);
+    if (answersInLineEl) {
+      const answers = await getUserWord(data.id);
+      answersInLineEl.textContent = `${answers}`;
+    }
   });
   options.currentBookGroup = group;
   options.currentBookPage = page;
-  console.log(options.currentBookGroup, options.currentBookPage);
+  // console.log(options.currentBookGroup, options.currentBookPage);
   return bookPageTemp;
 }

@@ -127,8 +127,29 @@
         </section>
     </template>
     <template id="word-card-temp">
-        <div class="word-card">
+           <div class="word-card">
             <div class="word-card__img"></div>
+            <div class="word-card__description">
+                <h3 class="word-card__title"></h3>
+                <div class="word-card__value">Значение:
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="word-card__example"> Пример:
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+            <div class="word-card__btns">
+                <button type="button" class="word-card__listen button"></button>
+            </div>
+        </div>
+    </template>
+    <template id="word-card-user-temp">
+           <div class="word-card">
+            <div class="word-card__img">
+              <p class="word-card__answers">Правильных ответов подряд: <span id="answers-in-line">0</span>/4</p>  
+            </div>
             <div class="word-card__description">
                 <h3 class="word-card__title"></h3>
                 <div class="word-card__value">Значение:
@@ -145,7 +166,7 @@
                 <button type="button" class="word-card__difficult button"></button>
                 <button type="button" class="word-card__studied button"></button>
             </div>
-        </div>
+        </div> 
     </template>
     <template id="sprint-page">
         <article class="sprint-rules">

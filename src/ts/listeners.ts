@@ -1,7 +1,9 @@
 import { options, levelOptions } from './options';
 import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
-import { shuffle } from './general-functions';
+import { shuffle, showLoading, removeLoading } from './general-functions';
 import { createUser, signIn } from './request';
+import { saveUserInfo } from './user';
+
 export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElement) {
   const currentBookPage = Number(location.hash.slice(-1));
   const minCurrentPage = 0;
@@ -21,6 +23,7 @@ export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElem
 export function addWordsListeners(ev: Event, container: HTMLDivElement) {
   const target = ev.target as HTMLElement;
   if (target.tagName != 'BUTTON') return;
+  const wordCard = target.closest('.word-card');
   const audioLinks = container.dataset.audio?.split(',');
   if (target.closest('.word-card__listen')) {
     const audioList: HTMLAudioElement[] = [];
@@ -33,10 +36,18 @@ export function addWordsListeners(ev: Event, container: HTMLDivElement) {
     audioList[0].onended = () => audioList[1].play();
     audioList[1].onended = () => audioList[2].play();
   }
-  // if (target.closest('.word-card__difficult')) {
-  // }
-  // if (target.closest('.word-card__studied')) {
-  // }
+  if (target.closest('.word-card__difficult')) {
+    wordCard?.classList.toggle('difficult');
+  }
+  if (target.closest('.word-card__studied')) {
+    // debugger
+    wordCard?.classList.toggle('studied');
+    const difficultBtn = document.querySelector('.word-card__difficult') as HTMLButtonElement;
+    if (wordCard?.classList.contains('studied')) {
+      difficultBtn.disabled = true;
+      if (wordCard?.classList.contains('difficult')) wordCard?.classList.remove('difficult');
+    } else difficultBtn.disabled = false;
+  }
 }
 export function addListeners() {
   const bookBtnsContainer = document.querySelector('.book__nav-btns');
@@ -216,6 +227,18 @@ export function addAuthorizationListeners() {
   const password = document.getElementById('password') as HTMLInputElement;
   const userBtn = document.querySelector('.header__user-img');
   const signOutEl = document.querySelector('.header__sign-out') as HTMLParagraphElement;
+  document.addEventListener('click', (ev) => {
+    const target = ev.target as HTMLElement;
+    if (
+      target.closest('article') !== authorization &&
+      target !== signOutEl &&
+      target !== signInBtn &&
+      target !== userBtn
+    ) {
+      authorization.style.display = 'none';
+      signOutEl.classList.add('hide');
+    }
+  });
   signInBtn.addEventListener('click', () => {
     authorization.style.display = 'flex';
   });
@@ -225,15 +248,14 @@ export function addAuthorizationListeners() {
   registrationBtn?.addEventListener('click', async (ev) => {
     if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
     ev.preventDefault();
-    console.log('valid');
     const newUser = await createUser({ name: userName.value, email: email.value, password: password.value });
     console.log(newUser);
     if (newUser) {
+      showLoading(authorization);
       const user = await signIn({ email: email.value, password: password.value });
+      removeLoading();
       console.log(user);
-      localStorage.setItem('user', JSON.stringify(user));
-      closeBtn.click();
-      showUser(userName.value);
+      saveUserInfo(user);
     }
 
     // console.log('email', email.validity.valid);
@@ -243,12 +265,14 @@ export function addAuthorizationListeners() {
   authorizationBtn?.addEventListener('click', async (ev) => {
     if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
     ev.preventDefault();
+    showLoading(authorization);
     const user = await signIn({ email: email.value, password: password.value });
-    console.log(user);
+    removeLoading();
+    console.log('user', user);
     if (user) {
-      closeBtn.click();
-      showUser(userName.value);
-      localStorage.setItem('user', JSON.stringify(user));
+      // closeBtn.click();
+      // showUser(userName.value);
+      saveUserInfo(user);
     }
   });
   userBtn?.addEventListener('click', () => {

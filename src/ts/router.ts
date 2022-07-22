@@ -8,6 +8,8 @@ import {
 } from './components';
 import { addListeners } from './listeners';
 import { addAuthorizationListeners } from './listeners';
+import { checkTokens } from './user';
+import { showLoading } from './general-functions';
 
 addAuthorizationListeners();
 const routes = [
@@ -27,6 +29,9 @@ const findComponentByPath = (path: string) => {
 
 const router = async () => {
   const path = parseLocation();
+  // debugger
+  showLoading(document.getElementById('main') as HTMLElement);
+  checkTokens();
   const component = findComponentByPath(path) || getErrorComponent();
   (document.getElementById('main') as HTMLElement).innerHTML = await component;
   addListeners();
