@@ -875,6 +875,7 @@ body {
 
 .word-card__listen,
 .word-card__difficult,
+.word-card__not-difficult,
 .word-card__studied {
     border-radius: 50px;
     padding: 5px;
@@ -890,19 +891,24 @@ body {
     background: url("assets/svg/bookmark.svg") no-repeat center/80% 90%;
 }
 
+.word-card__not-difficult {
+    background: url("assets/svg/delete.svg") no-repeat center/80% 90%;
+}
+
 .word-card__studied {
     background: url("assets/svg/сheck-mark.svg") no-repeat center/80% 90%;
 }
 
 .word-card__difficult::after,
+.word-card__not-difficult::after,
 .word-card__studied::after {
-    content: "Добавить сложное слово в словарь";
+    content: "Добавить в сложные";
     position: absolute;
     font-size: initial;
     font-style: italic;
     left: calc(0vw - 40px);
     top: -50px;
-    width: 150px;
+    width: 100px;
     padding: 2px;
     color: black;
     background-color: blanchedalmond;
@@ -912,13 +918,17 @@ body {
 }
 
 .word-card__difficult:hover::after,
+.word-card__not-difficult:hover::after,
 .word-card__studied:hover::after {
     opacity: 1;
 }
 
+.word-card__not-difficult::after {
+    content: "Удалить из сложных";
+}
+
 .word-card__studied::after {
     content: "Пометить как изученное";
-    width: 100px;
     left: 0vw;
 }
 
@@ -991,6 +1001,7 @@ body {
     }
     .word-card__listen,
     .word-card__difficult,
+    .word-card__not-difficult,
     .word-card__studied {
         width: 30px;
         height: 30px;
@@ -1183,6 +1194,7 @@ body {
         flex-direction: column;
     }
     .word-card__difficult::after,
+    .word-card__not-difficult::after,
     .word-card__studied::after {
         display: none;
     }
