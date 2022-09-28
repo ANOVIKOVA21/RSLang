@@ -31,7 +31,7 @@ const router = async () => {
   const path = parseLocation();
   // debugger
   showLoading(document.getElementById('main') as HTMLElement);
-  checkTokens();
+  await checkTokens();
   const component = findComponentByPath(path) || getErrorComponent();
   (document.getElementById('main') as HTMLElement).innerHTML = await component;
   addListeners();
