@@ -1,12 +1,12 @@
-import { renderBookPage } from './book';
+import { renderBookPage, renderUserBookPage } from './book';
 import { showUser } from './listeners';
+import { getUserInfo } from './user';
 
 const signInBtn = document.querySelector('.header__sign-in') as HTMLButtonElement;
 const userEl = document.querySelector('.header__user') as HTMLDivElement;
-const value = localStorage.getItem('user');
+const userData = getUserInfo();
 export function getHomeComponent(): string {
-  if (typeof value === 'string') {
-    const userData = JSON.parse(value);
+  if (userData) {
     showUser(userData.name);
     signInBtn.classList.add('hide');
   } else signInBtn.style.display = 'block';
@@ -19,13 +19,18 @@ export async function getBookComponent(path: string) {
   userEl.style.display = 'none';
   const bookGroup = Number(path.slice(-3, -2));
   const bookPage = Number(path.slice(-1));
-  let wordCardTemp;
-  if (typeof value === 'string') wordCardTemp = document.querySelector('#word-card-user-temp') as HTMLTemplateElement;
-  else wordCardTemp = document.querySelector('#word-card-temp') as HTMLTemplateElement;
-  const bookPageTemp = await renderBookPage(wordCardTemp, bookGroup, bookPage);
+  let bookPageTemp: HTMLTemplateElement;
+  if (userData) {
+    if (bookGroup === 6) {
+      bookPageTemp = await renderUserBookPage(bookGroup, bookPage);
+    } else {
+      bookPageTemp = await renderUserBookPage(bookGroup, bookPage);
+    }
+  } else {
+    bookPageTemp = await renderBookPage(bookGroup, bookPage);
+  }
   return bookPageTemp.innerHTML;
 }
-
 export function getSprintComponent(path: string): string {
   signInBtn.style.display = 'none';
   userEl.style.display = 'none';
