@@ -1,7 +1,7 @@
 import { options, levelOptions } from './options';
 import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
 import { shuffle, showLoading, removeLoading } from './general-functions';
-import { createUser, signIn } from './request';
+import { createUser, signIn, updateUserWord, getUserWord } from './request';
 import { saveUserInfo } from './user';
 
 export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElement) {
@@ -20,11 +20,16 @@ export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElem
     nextBtn.disabled = false;
   }
 }
-export function addWordsListeners(ev: Event, container: HTMLDivElement) {
+export async function addWordsListeners(ev: Event, container: HTMLDivElement) {
   const target = ev.target as HTMLElement;
   if (target.tagName != 'BUTTON') return;
-  const wordCard = target.closest('.word-card');
+  const wordCard = target.closest('.word-card') as HTMLDivElement;
   const audioLinks = container.dataset.audio?.split(',');
+  const wordId = wordCard.getAttribute('data-word-id') as string;
+  const wordInfoTemp = {
+    difficulty: 'normal',
+    optional: { newWord: 'noGame', rightAnswers: 0 },
+  };
   if (target.closest('.word-card__listen')) {
     const audioList: HTMLAudioElement[] = [];
     audioLinks?.forEach((link) => {
@@ -36,17 +41,37 @@ export function addWordsListeners(ev: Event, container: HTMLDivElement) {
     audioList[0].onended = () => audioList[1].play();
     audioList[1].onended = () => audioList[2].play();
   }
+  const wordInfo = await getUserWord(wordId, wordInfoTemp);
+  const amountOfAnswers = wordCard.querySelector('.word-card__amount-answers') as HTMLSpanElement;
+  console.log('word info', wordInfo);
   if (target.closest('.word-card__difficult')) {
-    wordCard?.classList.toggle('difficult');
+    wordCard?.classList.add('difficult');
+    amountOfAnswers.innerHTML = '6';
+    wordInfo.difficulty = 'difficult';
+    updateUserWord(wordId, wordInfo);
   }
   if (target.closest('.word-card__studied')) {
     // debugger
-    wordCard?.classList.toggle('studied');
+    wordCard.classList.toggle('studied');
     const difficultBtn = document.querySelector('.word-card__difficult') as HTMLButtonElement;
-    if (wordCard?.classList.contains('studied')) {
-      difficultBtn.disabled = true;
+    const deleteBtn = document.querySelector('.word-card__not-difficult') as HTMLButtonElement;
+    if (wordCard.classList.contains('studied')) {
+      if (difficultBtn) difficultBtn.disabled = true;
+      if (deleteBtn) wordCard.remove();
+      wordInfo.difficulty = 'studied';
+      updateUserWord(wordId, wordInfo);
       if (wordCard?.classList.contains('difficult')) wordCard?.classList.remove('difficult');
-    } else difficultBtn.disabled = false;
+    } else {
+      difficultBtn.disabled = false;
+      wordInfo.difficulty = 'normal';
+      amountOfAnswers.innerHTML = '4';
+      updateUserWord(wordId, wordInfo);
+    }
+  }
+  if (target.closest('.word-card__not-difficult')) {
+    wordCard.remove();
+    wordInfo.difficulty = 'normal';
+    updateUserWord(wordId, wordInfo);
   }
 }
 export function addListeners() {
