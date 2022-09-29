@@ -1,17 +1,13 @@
 import { showWarning } from './general-functions';
-import { getUserInfo, redirectToAuthorization } from './user';
+import { getUserInfo, redirectToAuthorization, saveUserInfo } from './user';
 const url = 'https://anna-learnenglish.herokuapp.com';
 const urlWords = url + '/words';
 const urlUsers = url + '/users';
 const urlSignIn = url + '/signin';
-// const value = localStorage.getItem('user');
-// let user;
-// if (typeof value === 'string') {
-//   user = JSON.parse(value);
-// }
 
 export interface GetWordsData {
-  id: string;
+  id?: string;
+  _id?: string;
   group: number;
   page: number;
   word: string;
@@ -25,6 +21,7 @@ export interface GetWordsData {
   textExampleTranslate: string;
   textMeaningTranslate: string;
   wordTranslate: string;
+  userWord?: GetWordInfo;
 }
 export interface GetUser {
   name?: string;
@@ -36,7 +33,7 @@ export interface GetWordInfo {
   optional: GetWordOptional;
 }
 interface GetWordOptional {
-  newWord: boolean;
+  newWord: string;
   rightAnswers: number;
 }
 
@@ -87,6 +84,7 @@ export async function deleteUser(id: string) {
   else console.log('Ошибка!');
 }
 export async function GetNewUserTokens() {
+  debugger;
   const userInfo = getUserInfo();
   if (!userInfo) return;
   const result = await fetch(`${urlUsers}/${userInfo.userId}/tokens`, {
@@ -100,10 +98,13 @@ export async function GetNewUserTokens() {
   console.log('sign in promise', result);
   if (result.status === 200) {
     const newUserInfo = await result.json();
-    localStorage.setItem('user', JSON.stringify(newUserInfo));
+    console.log(newUserInfo);
+    saveUserInfo(newUserInfo);
+    // localStorage.setItem('user', JSON.stringify(newUserInfo));
   } else if (result.status === 401) redirectToAuthorization();
 }
-export async function createUserWord(wordId: string, word: GetWordInfo) {
+export async function createUserWord(wordId: string, wordInfo: GetWordInfo) {
+  debugger;
   const userInfo = getUserInfo();
   if (!userInfo) return;
   const result = await fetch(`${urlUsers}/${userInfo.userId}/words/${wordId}`, {
@@ -113,11 +114,14 @@ export async function createUserWord(wordId: string, word: GetWordInfo) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(word),
+    body: JSON.stringify(wordInfo),
   });
-  const content = await result.json();
-  if (result.status === 404) GetNewUserTokens();
-  console.log(content);
+  if (result.status === 200) {
+    const content = await result.json();
+    delete content.id;
+    delete content.wordId;
+    return content;
+  } else if (result.status === 401) GetNewUserTokens();
 }
 export async function getUserWords() {
   const userInfo = getUserInfo();
@@ -129,11 +133,10 @@ export async function getUserWords() {
       Accept: 'application/json',
     },
   });
-  const content = await result.json();
-
-  console.log(content);
+  if (result.status === 200) return result.json();
+  else if (result.status === 401) GetNewUserTokens();
 }
-export async function getUserWord(wordId: string) {
+export async function getUserWord(wordId: string, wordInfo?: GetWordInfo) {
   const userInfo = getUserInfo();
   if (!userInfo) return;
   const result = await fetch(`${urlUsers}/${userInfo.userId}/words/${wordId}`, {
@@ -143,13 +146,16 @@ export async function getUserWord(wordId: string) {
       Accept: 'application/json',
     },
   });
-  const content = await result.json();
-
-  console.log(content);
-  if (result.status === 200) return result.json();
-  else if (result.status === 404) return;
+  if (result.status === 200) {
+    const content = await result.json();
+    delete content.id;
+    delete content.wordId;
+    return content;
+  } else if (result.status === 404) {
+    if (wordInfo) return createUserWord(wordId, wordInfo);
+  } else if (result.status === 401) GetNewUserTokens();
 }
-export async function UpdateUserWord(wordId: string, word: GetWordInfo) {
+export async function updateUserWord(wordId: string, wordInfo: GetWordInfo) {
   const userInfo = getUserInfo();
   if (!userInfo) return;
   const result = await fetch(`${urlUsers}/${userInfo.userId}/words/${wordId}`, {
@@ -159,9 +165,29 @@ export async function UpdateUserWord(wordId: string, word: GetWordInfo) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(word),
+    body: JSON.stringify(wordInfo),
   });
   const content = await result.json();
-
   console.log(content);
+  if (result.status === 401) GetNewUserTokens();
+  else if (result.status === 404) createUserWord(wordId, wordInfo);
+}
+export async function getAggregatedWords(group: number, page: number) {
+  const userInfo = getUserInfo();
+  if (!userInfo) return;
+  let filter;
+  if (group === 6) filter = { $or: [{ 'userWord.difficulty': 'difficult' }] };
+  else filter = { $and: [{ page: page }, { group: group }] };
+  const result = await fetch(
+    `${urlUsers}/${userInfo.userId}/aggregatedWords?filter=${JSON.stringify(filter)}&wordsPerPage=20`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+        Accept: 'application/json',
+      },
+    }
+  );
+  if (result.status === 200) return result.json();
+  else if (result.status === 401) GetNewUserTokens();
 }
