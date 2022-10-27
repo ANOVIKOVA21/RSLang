@@ -58,3 +58,9 @@ export function parseJwt(token: string) {
 
   return JSON.parse(jsonPayload);
 }
+export function showUserError(errorEl: HTMLParagraphElement, input: HTMLInputElement) {
+  const validationMessage = input.validationMessage;
+  errorEl.innerHTML = validationMessage;
+  if (!validationMessage) input.style.border = '2px solid #1cd91c';
+  else input.style.border = '2px solid red';
+}

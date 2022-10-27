@@ -27,14 +27,18 @@
                     <label for="user-name">
                         Имя: <input type="text" id="user-name" name="user_name" placeholder="Введите имя" minlength="3"
                             required>
+                        <p class="input-error" aria-live="polite"></p>
                     </label>
                     <label for="mail">
                         E-mail: <input type="email" id="email" name="user_email" placeholder="Введите адресс почты"
                             minlength="4" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}" required>
+                        <p class="input-error" aria-live="polite"></p>
                     </label>
                     <label for="password">
                         Пароль: <input type="password" id="password" name="user_password" placeholder="Введите пароль"
-                            minlength="8" autocomplete="current-password" required></label>
+                            minlength="8" autocomplete="current-password" required>
+                        <p class="input-error" aria-live="polite"></p>
+                    </label>
                     <button type="submit" class="authorization__registration button">Зарегистрироваться</button>
                     <p>Уже зарегестрированы?</p>
                     <button type="submit" class="authorization__sign-in button">Войти</button>

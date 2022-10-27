@@ -312,13 +312,15 @@ body {
     padding: 10px;
     color: black;
     position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .authorization,
 .authorization__form-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
@@ -376,6 +378,10 @@ body {
     background-color: white;
 }
 
+.authorization__form-container input:focus-visible {
+    outline: none;
+}
+
 .authorization__registration,
 .authorization__sign-in {
     font-weight: 400;
@@ -386,6 +392,16 @@ body {
 .authorization__form p,
 .authorization__sign-in {
     margin: 0;
+}
+
+.name-error,
+.email-error,
+.password-error {
+    font-size: 0.8em;
+    color: red;
+    min-height: 15px;
+    line-height: 1.3em;
+    padding-top: 2px;
 }
 
 .footer {
@@ -1242,4 +1258,16 @@ body {
     background: rgba(10, 10, 10, 0.1) url('assets/gif/loading.gif') no-repeat center/30%;
     width: 100%;
     height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    background-color: #bfe8ed;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1be7ee;
+    border-radius: 50px;
+    box-shadow: inset 1px 1px 10px #9aafef;
 }

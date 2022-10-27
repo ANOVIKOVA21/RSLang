@@ -1,6 +1,6 @@
 import { options, levelOptions } from './options';
 import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
-import { shuffle, showLoading, removeLoading } from './general-functions';
+import { shuffle, showLoading, removeLoading, showUserError } from './general-functions';
 import { createUser, signIn, updateUserWord, getUserWord } from './request';
 import { saveUserInfo } from './user';
 
@@ -252,6 +252,7 @@ export function addAuthorizationListeners() {
   const password = document.getElementById('password') as HTMLInputElement;
   const userBtn = document.querySelector('.header__user-img');
   const signOutEl = document.querySelector('.header__sign-out') as HTMLParagraphElement;
+  const inputErrors = authorization.querySelectorAll<HTMLParagraphElement>('.input-error');
   document.addEventListener('click', (ev) => {
     const target = ev.target as HTMLElement;
     if (
@@ -306,5 +307,17 @@ export function addAuthorizationListeners() {
   signOutEl.addEventListener('click', () => {
     localStorage.removeItem('user');
     location.reload();
+  });
+  const inputs = [userName, email, password];
+  inputs.forEach((input, i) => {
+    input.addEventListener('blur', () => showUserError(inputErrors[i], input));
+  });
+  inputs.forEach((input, i) => {
+    input.addEventListener('input', () => {
+      if (input.validity.valid) {
+        input.style.border = '2px solid #1cd91c';
+        inputErrors[i].innerHTML = '';
+      }
+    });
   });
 }
