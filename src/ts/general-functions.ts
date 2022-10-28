@@ -31,16 +31,14 @@ export function showWarning(warning: string) {
     warningEl.remove();
   }, 5000);
 }
-export function showLoading(parent: HTMLElement) {
-  // debugger
+export function showLoading(parent: HTMLElement, target: string) {
   const loadingContainer = document.createElement('div');
-  loadingContainer.classList.add('loading');
-  loadingContainer.style.width = parent.offsetWidth + 'px';
-  // parent.style.position = 'relative';
+  loadingContainer.style.width = parent.clientWidth + 'px';
+  loadingContainer.classList.add(`${target}-loading`);
   parent.appendChild(loadingContainer);
 }
-export function removeLoading() {
-  const loadingContainer = document.querySelector('.loading') as HTMLDivElement;
+export function removeLoading(target: string) {
+  const loadingContainer = document.querySelector(`.${target}-loading`) as HTMLDivElement;
   loadingContainer.remove();
 }
 export function parseJwt(token: string) {

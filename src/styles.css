@@ -10,6 +10,11 @@ body {
     color: white;
     margin: 0;
     padding: 0;
+    position: relative;
+}
+
+main {
+    min-height: 75vh;
 }
 
 .button {
@@ -407,7 +412,7 @@ body {
 .footer {
     background-color: rgb(34, 33, 33);
     padding: 0 10px 5px 0;
-    height: 10vh;
+    /* height: 10vh; */
 }
 
 .gratitude {
@@ -1253,11 +1258,18 @@ body {
     font-weight: bold;
 }
 
-.loading {
+.authorization-loading {
     position: absolute;
     background: rgba(10, 10, 10, 0.1) url('assets/gif/loading.gif') no-repeat center/30%;
-    width: 100%;
     height: 100%;
+}
+
+.page-loading {
+    position: fixed;
+    background: rgba(234, 244, 247, 0.3) url('assets/gif/cat-loading.gif') no-repeat center/20%;
+    width: 100%-10px;
+    height: 100vh;
+    top: 0;
 }
 
 ::-webkit-scrollbar {

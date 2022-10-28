@@ -277,9 +277,9 @@ export function addAuthorizationListeners() {
     const newUser = await createUser({ name: userName.value, email: email.value, password: password.value });
     console.log(newUser);
     if (newUser) {
-      showLoading(authorization);
+      showLoading(authorization, 'authorization');
       const user = await signIn({ email: email.value, password: password.value });
-      removeLoading();
+      removeLoading('authorization');
       console.log(user);
       saveUserInfo(user);
     }
@@ -291,9 +291,9 @@ export function addAuthorizationListeners() {
   authorizationBtn?.addEventListener('click', async (ev) => {
     if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
     ev.preventDefault();
-    showLoading(authorization);
+    showLoading(authorization, 'authorization');
     const user = await signIn({ email: email.value, password: password.value });
-    removeLoading();
+    removeLoading('authorization');
     console.log('user', user);
     if (user) {
       // closeBtn.click();
