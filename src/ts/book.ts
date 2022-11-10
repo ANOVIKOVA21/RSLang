@@ -79,6 +79,7 @@ export async function renderUserBookPage(group = 0, page = 0) {
   } else {
     const wordCardUserTemp = document.querySelector('#word-card-user-temp') as HTMLTemplateElement;
     await renderWordCards(wordCardUserTemp, wordsData, parent);
+    navBtns.style.display = 'flex';
   }
   options.currentBookGroup = group;
   options.currentBookPage = page;
