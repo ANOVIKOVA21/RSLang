@@ -4,8 +4,8 @@ import { getUserInfo } from './user';
 
 const signInBtn = document.querySelector('.header__sign-in') as HTMLButtonElement;
 const userEl = document.querySelector('.header__user') as HTMLDivElement;
-const userData = getUserInfo();
 export function getHomeComponent(): string {
+  const userData = getUserInfo();
   if (userData) {
     showUser(userData.name);
     signInBtn.classList.add('hide');
@@ -20,6 +20,7 @@ export async function getBookComponent(path: string) {
   const bookGroup = Number(path.slice(-3, -2));
   const bookPage = Number(path.slice(-1));
   let bookPageTemp: HTMLTemplateElement;
+  const userData = getUserInfo();
   if (userData) {
     if (bookGroup === 6) {
       bookPageTemp = await renderUserBookPage(bookGroup, bookPage);

@@ -53,7 +53,6 @@ export function parseJwt(token: string) {
       })
       .join('')
   );
-
   return JSON.parse(jsonPayload);
 }
 export function showUserError(errorEl: HTMLParagraphElement, input: HTMLInputElement) {
