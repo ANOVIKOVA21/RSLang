@@ -1,5 +1,5 @@
 import { showWarning } from './general-functions';
-import { getUserInfo, redirectToAuthorization, saveUserInfo } from './user';
+import { getUserInfo, GetUserInfo, redirectToAuthorization, saveUserInfo, updateUserInfo } from './user';
 const url = 'https://anna-learnenglish.herokuapp.com';
 const urlWords = url + '/words';
 const urlUsers = url + '/users';
@@ -64,8 +64,12 @@ export async function signIn(user: GetUser) {
     body: JSON.stringify(user),
   });
   console.log('sign in promise', result);
-  if (result.status === 200) return result.json();
-  else if (result.status === 403) showWarning('Неправильный email или пароль!');
+  if (result.status === 200) {
+    const userInfo = (await result.json()) as unknown;
+    console.log(userInfo);
+    saveUserInfo(userInfo as GetUserInfo);
+    // return result.json();
+  } else if (result.status === 403) showWarning('Неправильный email или пароль!');
   else showWarning('Ошибка! Проверьте email или пароль');
 }
 export async function deleteUser(id: string) {
@@ -97,10 +101,9 @@ export async function GetNewUserTokens() {
   });
   console.log('sign in promise', result);
   if (result.status === 200) {
-    const newUserInfo = await result.json();
-    console.log(newUserInfo);
-    saveUserInfo(newUserInfo);
-    // localStorage.setItem('user', JSON.stringify(newUserInfo));
+    const newUserToken = await result.json();
+    console.log(newUserToken);
+    updateUserInfo(newUserToken);
   } else if (result.status === 401) redirectToAuthorization();
 }
 export async function createUserWord(wordId: string, wordInfo: GetWordInfo) {

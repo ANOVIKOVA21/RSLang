@@ -2,7 +2,7 @@ import { options, levelOptions } from './options';
 import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
 import { shuffle, showLoading, removeLoading, showUserError } from './general-functions';
 import { createUser, signIn, updateUserWord, getUserWord } from './request';
-import { saveUserInfo } from './user';
+// import { saveUserInfo } from './user';
 
 export function updateNavigation(prevBtn: HTMLLinkElement, nextBtn: HTMLLinkElement) {
   const currentBookPage = Number(location.hash.slice(-1));
@@ -274,16 +274,15 @@ export function addAuthorizationListeners() {
   registrationBtn?.addEventListener('click', async (ev) => {
     if (!userName.validity.valid || !email.validity.valid || !password.validity.valid) return;
     ev.preventDefault();
+    showLoading(authorization, 'authorization');
     const newUser = await createUser({ name: userName.value, email: email.value, password: password.value });
     console.log(newUser);
     if (newUser) {
-      showLoading(authorization, 'authorization');
       const user = await signIn({ email: email.value, password: password.value });
-      removeLoading('authorization');
       console.log(user);
-      saveUserInfo(user);
+      // saveUserInfo(user);
     }
-
+    removeLoading('authorization');
     // console.log('email', email.validity.valid);
     // console.log('password valid', password.validity.valid);
     // console.log('password', password.value);
@@ -295,11 +294,9 @@ export function addAuthorizationListeners() {
     const user = await signIn({ email: email.value, password: password.value });
     removeLoading('authorization');
     console.log('user', user);
-    if (user) {
-      // closeBtn.click();
-      // showUser(userName.value);
-      saveUserInfo(user);
-    }
+    // if (user) {
+    //   saveUserInfo(user);
+    // }
   });
   userBtn?.addEventListener('click', () => {
     signOutEl.classList.toggle('hide');

@@ -29,7 +29,6 @@ const findComponentByPath = (path: string) => {
 
 const router = async () => {
   const path = parseLocation();
-  debugger;
   showLoading(document.body, 'page');
   await checkTokens();
   const component = findComponentByPath(path) || getErrorComponent();
