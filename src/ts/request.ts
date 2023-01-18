@@ -181,6 +181,7 @@ export async function getAggregatedWords(group: number, page: number) {
   let filter;
   if (group === 6) filter = { $or: [{ 'userWord.difficulty': 'difficult' }] };
   else filter = { $and: [{ page: page }, { group: group }] };
+  // {"$and":[{"$and":[{"page":0,"group":0}]},{"$and":[{"userWord.difficulty":"difficult","userWord":null}]}]}
   const result = await fetch(
     `${urlUsers}/${userInfo.userId}/aggregatedWords?filter=${JSON.stringify(filter)}&wordsPerPage=20`,
     {
@@ -191,6 +192,8 @@ export async function getAggregatedWords(group: number, page: number) {
       },
     }
   );
-  if (result.status === 200) return result.json();
-  else if (result.status === 401) GetNewUserTokens();
+  if (result.status === 200) {
+    const res = await result.json();
+    return res[0].paginatedResults;
+  } else if (result.status === 401) GetNewUserTokens();
 }

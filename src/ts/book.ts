@@ -56,8 +56,7 @@ export async function renderBookPage(group = 0, page = 0) {
   return bookPageTemp;
 }
 export async function renderUserBookPage(group = 0, page = 0) {
-  const aggregatedWords = await getAggregatedWords(group, page);
-  const wordsData: GetWordsData[] = aggregatedWords[0].paginatedResults;
+  const wordsData: GetWordsData[] = await getAggregatedWords(group, page);
   const bookPageTemp = document.getElementById('book-page') as HTMLTemplateElement;
   const groupList = bookPageTemp.content.querySelector('.book__sections') as HTMLUListElement;
   const currentPageEl = bookPageTemp.content.querySelector('.book__curr-page') as HTMLSpanElement;
