@@ -1,4 +1,5 @@
 import { GetWordsData } from './request';
+import { getUserInfo } from './user';
 export function getRandomNum(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -60,4 +61,11 @@ export function showUserError(errorEl: HTMLParagraphElement, input: HTMLInputEle
   errorEl.innerHTML = validationMessage;
   if (!validationMessage) input.style.border = '2px solid #1cd91c';
   else input.style.border = '2px solid red';
+}
+type LevelFn = (p1: number, p2: number, p3?: number) => Promise<GetWordsData[]>;
+export function chooseFunction(function1: LevelFn, function2: LevelFn) {
+  debugger;
+  const userInfo = getUserInfo();
+  if (!userInfo) return function1;
+  else return function2;
 }

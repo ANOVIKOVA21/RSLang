@@ -1,4 +1,4 @@
-import { getWords, GetWordsData } from './request';
+import { getWords, GetWordsData, getAggregatedWords } from './request';
 import { getArrRandomNumbers, getRandomNum } from './general-functions';
 import { levelOptions, options } from './options';
 import { showResult } from './result';
@@ -44,6 +44,29 @@ export async function getLevelData(amountOfArrs: number, group: number, page?: n
   const words = (await data).flat();
   return words;
 }
+export async function getUserLevelData(amountOfArrs: number, group: number, page?: number) {
+  debugger;
+  const promiseArr = [];
+  if (page || page === 0) {
+    for (let i = 0; i < amountOfArrs; i++) {
+      if (i === 0) promiseArr.push(getAggregatedWords(group, page));
+      if (page === 0) break;
+      page -= 1;
+      promiseArr.push(getAggregatedWords(group, page));
+    }
+  } else {
+    const randomPages = getArrRandomNumbers(amountOfArrs, options.totalPages);
+    for (let i = 0; i < randomPages.length; i++) {
+      const chunkOfWords: GetWordsData[] = await getAggregatedWords(group - 1, randomPages[i]);
+      const filteredWords = chunkOfWords.filter((word) => !word.userWord || word.userWord.difficulty !== 'studied');
+      promiseArr.push(filteredWords);
+    }
+  }
+  const data = Promise.all(promiseArr);
+  const words = (await data).flat();
+  console.log(words);
+  return words;
+}
 let interval: NodeJS.Timer;
 
 function setTime(timer: HTMLSpanElement) {
@@ -80,7 +103,10 @@ export async function startSprint(words: GetWordsData[]) {
   const rightAnswer = words[levelOptions.questionNum].wordTranslate;
   if (getRandomNum(0, 1)) wordTranslationEl.innerHTML = `${rightAnswer}`;
   else wordTranslationEl.innerHTML = `${words[getRandomNum(0, words.length - 1)].wordTranslate}`;
-  levelOptions.currentWordId = words[levelOptions.questionNum].id;
+  if (words[levelOptions.questionNum].id !== undefined)
+    levelOptions.currentWordId = words[levelOptions.questionNum].id as string;
+  else if (words[levelOptions.questionNum]._id !== undefined)
+    levelOptions.currentWordId = words[levelOptions.questionNum]._id as string;
   levelOptions.questionNum++;
 
   console.log(rightAnswer);
@@ -105,8 +131,10 @@ export async function startAudioCall(words: GetWordsData[]) {
   const randomWordsNums = getArrRandomNumbers(5, words.length - 1, levelOptions.questionNum);
   optionsTranslation.forEach((option, index) => (option.innerHTML = words[randomWordsNums[index]].wordTranslate));
   optionsTranslation[randomNum].innerHTML = `${rightAnswer}`;
-
-  levelOptions.currentWordId = words[levelOptions.questionNum].id;
+  if (words[levelOptions.questionNum].id !== undefined)
+    levelOptions.currentWordId = words[levelOptions.questionNum].id as string;
+  else if (words[levelOptions.questionNum]._id !== undefined)
+    levelOptions.currentWordId = words[levelOptions.questionNum]._id as string;
   levelOptions.questionNum++;
 
   console.log(rightAnswer);

@@ -1,6 +1,15 @@
 import { options, levelOptions } from './options';
-import { getLevelData, getAudio, startSprint, startAudioCall, startTimer, checkRightAnswers, setScore } from './game';
-import { shuffle, showLoading, removeLoading, showUserError } from './general-functions';
+import {
+  getLevelData,
+  getUserLevelData,
+  getAudio,
+  startSprint,
+  startAudioCall,
+  startTimer,
+  checkRightAnswers,
+  setScore,
+} from './game';
+import { shuffle, showLoading, removeLoading, showUserError, chooseFunction } from './general-functions';
 import { createUser, signIn, updateUserWord, getUserWord } from './request';
 // import { saveUserInfo } from './user';
 
@@ -115,14 +124,19 @@ export function addListeners() {
     container.addEventListener('click', (ev) => addWordsListeners(ev, container))
   );
   sprintStartBtn?.addEventListener('click', async () => {
+    debugger;
+    const levelDataFn = chooseFunction(getLevelData, getUserLevelData);
+    // const userInfo = getUserInfo();
+    if (sprintSelect) {
+      //  levelOptions.words = await getLevelData(6, Number(sprintSelect.value));
+      levelOptions.words = await levelDataFn(6, Number(sprintSelect.value));
+    } else {
+      // levelOptions.words = await getLevelData(6, options.currentBookGroup, options.currentBookPage);
+      levelOptions.words = await levelDataFn(6, options.currentBookGroup, options.currentBookPage);
+    }
     sprintRulesEl.style.display = 'none';
     sprintGameEl.style.display = 'flex';
     footer.style.display = 'none';
-    if (sprintSelect) {
-      levelOptions.words = await getLevelData(6, Number(sprintSelect.value));
-    } else {
-      levelOptions.words = await getLevelData(6, options.currentBookGroup, options.currentBookPage);
-    }
     startSprint(levelOptions.words);
     startTimer();
     sprintGameEl?.focus();

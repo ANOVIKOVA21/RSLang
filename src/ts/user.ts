@@ -21,7 +21,7 @@ export function getUserInfo() {
   }
 }
 export async function checkTokens() {
-  debugger;
+  // debugger;
   const userInfo = getUserInfo();
   if (!userInfo) return;
   if (!userInfo.exp) return;
